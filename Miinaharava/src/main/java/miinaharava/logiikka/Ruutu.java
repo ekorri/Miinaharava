@@ -6,9 +6,9 @@ public class Ruutu {
     private boolean avattu;
     private boolean onkoRuudussaMiina;
     private boolean onkoLiputettu;
-    private int testi;
+    private String testi;
 
-    public Ruutu(int testi) {        
+    public Ruutu(String testi) {        
         this.avattu = false;
         this.onkoRuudussaMiina = false;
         this.onkoLiputettu = false;
@@ -40,11 +40,13 @@ public class Ruutu {
         this.onkoLiputettu = onkoLiputettu;
     }
 
-    
+    public void setTesti(String arvo) {
+        this.testi = arvo;
+    }
 
     @Override
     public String toString() {
-        return "" + this.testi;
+        return this.testi;
     }
 
 }

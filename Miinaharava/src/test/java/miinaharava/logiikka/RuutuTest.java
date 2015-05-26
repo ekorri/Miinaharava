@@ -31,7 +31,7 @@ public class RuutuTest {
     
     @Before
     public void setUp() {
-        ruutu = new Ruutu(2);
+        ruutu = new Ruutu("2");
     }
     
     @After
