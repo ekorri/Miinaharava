@@ -53,7 +53,70 @@ public class PelilautaTest {
         assertEquals(10, pelilauta.getMiinoja());
     }
     
+    @Test
+    public void avaaRuutuJossaEiMiinaaToimiiOikein() {
+        pelilauta.getRuutu(5, 5).setOnkoRuudussaMiina(false);
+        pelilauta.getRuutu(5, 4).setOnkoRuudussaMiina(true);
+        pelilauta.getRuutu(5, 6).setOnkoRuudussaMiina(true);
+        pelilauta.avaaRuutu(5, 5);
+        
+        
+        assertEquals(2, pelilauta.getYmparillaOlevienMiinojenMaara(5, 5));
+    }
     
+    @Test
+    public void avaaRuutuJossaEiMiinaaYmparillakaanToimiiOikein() {
+        pelilauta.getRuutu(0, 0).setOnkoRuudussaMiina(false);
+        pelilauta.getRuutu(1, 0).setOnkoRuudussaMiina(false);
+        pelilauta.getRuutu(1, 1).setOnkoRuudussaMiina(false);
+        pelilauta.getRuutu(0, 1).setOnkoRuudussaMiina(false);
+        pelilauta.avaaRuutu(0, 0);
+        
+        assertEquals(true, pelilauta.getRuutu(1, 1).isAvattu());
+    }
+    
+    @Test
+    public void avaaRuutuJossaMiinaToimiiOikein() {
+        pelilauta.getRuutu(5, 4).setOnkoRuudussaMiina(true);
+        pelilauta.avaaRuutu(5, 4);
+        
+        assertEquals("*", pelilauta.getRuutu(5, 4).getTesti());
+    }
+    
+    @Test
+    public void getYmparillaOlevienMiinojenMaaraToimiiOikein() {
+        pelilauta.getRuutu(5, 5).setOnkoRuudussaMiina(true);
+        pelilauta.getRuutu(5, 4).setOnkoRuudussaMiina(true);
+        
+        assertEquals(2, pelilauta.getYmparillaOlevienMiinojenMaara(4, 5));
+        
+    }
+    
+    @Test
+    public void avaaYmparillaOlevatToimiiOikein() {
+        pelilauta.getRuutu(8, 0).setAvattu(true);
+        pelilauta.getRuutu(8, 0).setOnkoRuudussaMiina(false);
+        pelilauta.avaaYmparillaOlevat2(8, 0);
+        
+        assertEquals(true, pelilauta.getRuutu(7, 0).isAvattu());
+        
+    }
+    
+    @Test
+    public void avaaYmparillaOlevatToimiiOikein2() {
+        pelilauta.getRuutu(5, 5).setAvattu(true);
+        pelilauta.getRuutu(5, 5).setOnkoRuudussaMiina(false);
+        pelilauta.avaaYmparillaOlevat2(5, 5);
+        
+        assertEquals(true, pelilauta.getRuutu(5, 4).isAvattu());
+    }
+    
+    @Test
+    public void liputaRuutuToimiiOikein() {
+        pelilauta.getRuutu(5, 5).setOnkoLiputettu(true);
+        
+        assertEquals(true, pelilauta.getRuutu(5, 5).isOnkoLiputettu());
+    }
     
     
     

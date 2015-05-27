@@ -28,11 +28,10 @@ public class Peli {
                 String vast = lukija.nextLine();
                 if (vast.equals("avataan")) {
                     System.out.print("Anna y-koordinaatti: ");
-                    int xKoordin = Integer.parseInt(lukija.nextLine());
-                    System.out.print("Anna x-koordinaatti: ");
                     int yKoordin = Integer.parseInt(lukija.nextLine());
+                    System.out.print("Anna x-koordinaatti: ");
+                    int xKoordin = Integer.parseInt(lukija.nextLine());
                     lauta.avaaRuutu(xKoordin, yKoordin);
-                    lauta.avatunRuudunKasittely(xKoordin, yKoordin);
                     Ruutu avattava = lauta.getRuutu(xKoordin, yKoordin);
                     if (avattava.isOnkoRuudussaMiina() == true) {
                         lauta.tulostaRuudukko();
@@ -41,7 +40,7 @@ public class Peli {
                     }
 
                 }
-                if (vast.equals("Liputetaan")) {
+                if (vast.equals("liputetaan")) {
                     System.out.print("Anna x-koordinaatti: ");
                     int xKoordin = Integer.parseInt(lukija.nextLine());
                     System.out.print("Anna y-koordinaatti: ");

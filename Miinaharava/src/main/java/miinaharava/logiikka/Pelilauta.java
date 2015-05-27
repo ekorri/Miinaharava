@@ -16,17 +16,17 @@ public class Pelilauta {
         this.korkeus = korkeus;
         this.miinoja = miinoja;
         this.random = new Random();
-        this.ruudukko = new Ruutu[this.leveys][this.korkeus];
-        for (int i = 0; i < this.leveys; i++) {
-            for (int j = 0; j < this.korkeus; j++) {
+        this.ruudukko = new Ruutu[this.korkeus][this.leveys];
+        for (int i = 0; i < this.korkeus; i++) {
+            for (int j = 0; j < this.leveys; j++) {
                 ruudukko[i][j] = new Ruutu("X");
             }
         }
     }
 
     public void tulostaRuudukko() {
-        for (int i = 0; i < leveys; i++) {
-            for (int j = 0; j < korkeus; j++) {
+        for (int i = 0; i < korkeus; i++) {
+            for (int j = 0; j < leveys; j++) {
                 System.out.print(ruudukko[i][j]);
             }
             System.out.println("");
@@ -46,13 +46,13 @@ public class Pelilauta {
     }
 
     public Ruutu getRuutu(int x, int y) {
-        return ruudukko[x][y];
+        return ruudukko[y][x];
     }
 
     public void asetaMiinat() {
         for (int i = 0; i < this.miinoja; i++) {
-            Miina miina = new Miina(random.nextInt(this.leveys), random.nextInt(this.korkeus));
-            ruudukko[miina.getxKoordinaatti()][miina.getyKoordinaatti()].setOnkoRuudussaMiina(true);
+            Miina miina = new Miina(random.nextInt(this.korkeus), random.nextInt(this.leveys));
+            ruudukko[miina.getyKoordinaatti()][miina.getxKoordinaatti()].setOnkoRuudussaMiina(true);
         }
     }
 
@@ -60,301 +60,317 @@ public class Pelilauta {
         if (x < 0 || x > this.leveys - 1 || y < 0 || y > this.korkeus - 1) {
             return;
         }
-        if (ruudukko[x][y].isAvattu() == true) {
+        if (ruudukko[y][x].isAvattu() == true) {
             return;
         }
-        ruudukko[x][y].setAvattu(true);
-//        if (ruudukko[x][y].isOnkoRuudussaMiina() == true) {
-//            ruudukko[x][y].setTesti("*");
-//        }
-//        
-//        if (ruudukko[x][y].isOnkoRuudussaMiina() == false) {
-//            this.merkitseNumero(x, y);
-//
-//        }
+        ruudukko[y][x].setAvattu(true);
+        if (ruudukko[y][x].isOnkoRuudussaMiina() == true) {
+            ruudukko[y][x].setTesti("*");
+            return;
+        }
+        
+        if (ruudukko[y][x].isOnkoRuudussaMiina() == false) {
+            this.merkitseNumero(x, y);
+
+        }
+        if (ruudukko[y][x].isOnkoRuudussaMiina() == false && this.getYmparillaOlevienMiinojenMaara(x, y) == 0) {
+            this.merkitseNumero(x, y);
+            this.avaaYmparillaOlevat2(x, y);
+        }
 
     }
 
     public void liputaRuutu(int x, int y) {
-        ruudukko[x][y].setOnkoLiputettu(true);
-        ruudukko[x][y].setTesti("P");
+        ruudukko[y][x].setOnkoLiputettu(true);
+        ruudukko[y][x].setTesti("P");
     }
-
+    
     public int getYmparillaOlevienMiinojenMaara(int x, int y) {
+        int alkuX = Math.max(0, x - 1);
+        int alkuY = Math.max(0, y - 1);
+        int loppuX = Math.min(x + 1, this.leveys - 1);
+        int loppuY = Math.min(y + 1, this.korkeus - 1);
         int laskuri = 0;
-        if (x != 0 && x != this.leveys - 1 && y != 0 && y != this.korkeus - 1) {
-            if (ruudukko[x - 1][y].isOnkoRuudussaMiina() == true) {
-                laskuri++;
-            }
-            if (ruudukko[x - 1][y - 1].isOnkoRuudussaMiina() == true) {
-                laskuri++;
-            }
-            if (ruudukko[x - 1][y + 1].isOnkoRuudussaMiina() == true) {
-                laskuri++;
-            }
-            if (ruudukko[x][y - 1].isOnkoRuudussaMiina() == true) {
-                laskuri++;
-            }
-            if (ruudukko[x][y + 1].isOnkoRuudussaMiina() == true) {
-                laskuri++;
-            }
-            if (ruudukko[x + 1][y].isOnkoRuudussaMiina() == true) {
-                laskuri++;
-            }
-            if (ruudukko[x + 1][y - 1].isOnkoRuudussaMiina() == true) {
-                laskuri++;
-            }
-            if (ruudukko[x + 1][y + 1].isOnkoRuudussaMiina() == true) {
-                laskuri++;
-            }
-        } else if (x == 0 && y != 0 && y != this.korkeus - 1) {
-            if (ruudukko[x][y - 1].isOnkoRuudussaMiina() == true) {
-                laskuri++;
-            }
-            if (ruudukko[x][y + 1].isOnkoRuudussaMiina() == true) {
-                laskuri++;
-            }
-            if (ruudukko[x + 1][y].isOnkoRuudussaMiina() == true) {
-                laskuri++;
-            }
-            if (ruudukko[x + 1][y - 1].isOnkoRuudussaMiina() == true) {
-                laskuri++;
-            }
-            if (ruudukko[x + 1][y + 1].isOnkoRuudussaMiina() == true) {
-                laskuri++;
-            }
-        } else if (x != 0 && x != this.leveys - 1 && y == 0) {
-            if (ruudukko[x - 1][y].isOnkoRuudussaMiina() == true) {
-                laskuri++;
-            }
-            if (ruudukko[x + 1][y].isOnkoRuudussaMiina() == true) {
-                laskuri++;
-            }
-            if (ruudukko[x - 1][y + 1].isOnkoRuudussaMiina() == true) {
-                laskuri++;
-            }
-            if (ruudukko[x][y + 1].isOnkoRuudussaMiina() == true) {
-                laskuri++;
-            }
-            if (ruudukko[x + 1][y + 1].isOnkoRuudussaMiina() == true) {
-                laskuri++;
-            }
-        } else if (x == 0 && y == 0) {
-            if (ruudukko[x + 1][y].isOnkoRuudussaMiina() == true) {
-                laskuri++;
-            }
-            if (ruudukko[x + 1][y + 1].isOnkoRuudussaMiina() == true) {
-                laskuri++;
-            }
-            if (ruudukko[x][y + 1].isOnkoRuudussaMiina() == true) {
-                laskuri++;
-            }
-        } else if (x == this.leveys - 1 && y == 0) {
-            if (ruudukko[x - 1][y].isOnkoRuudussaMiina() == true) {
-                laskuri++;
-            }
-            if (ruudukko[x - 1][y + 1].isOnkoRuudussaMiina() == true) {
-                laskuri++;
-            }
-            if (ruudukko[x][y + 1].isOnkoRuudussaMiina() == true) {
-                laskuri++;
-            }
-        } else if (x == 0 && y == this.korkeus - 1) {
-            if (ruudukko[x][y - 1].isOnkoRuudussaMiina() == true) {
-                laskuri++;
-            }
-            if (ruudukko[x + 1][y - 1].isOnkoRuudussaMiina() == true) {
-                laskuri++;
-            }
-            if (ruudukko[x + 1][y].isOnkoRuudussaMiina() == true) {
-                laskuri++;
-            }
-        } else if (x == this.leveys - 1 && y == this.korkeus - 1) {
-            if (ruudukko[x][y - 1].isOnkoRuudussaMiina() == true) {
-                laskuri++;
-            }
-            if (ruudukko[x - 1][y - 1].isOnkoRuudussaMiina() == true) {
-                laskuri++;
-            }
-            if (ruudukko[x - 1][y].isOnkoRuudussaMiina() == true) {
-                laskuri++;
+        
+        for (int yi = alkuY; yi <= loppuY; yi++) {
+            for (int xi = alkuX; xi <= loppuX; xi++) {
+                if (yi == y && xi == x) {
+                    continue;
+                }
+                if (ruudukko[yi][xi].isOnkoRuudussaMiina() == true) {
+                    laskuri++;
+                }
             }
         }
         return laskuri;
     }
 
+
+
     public void merkitseNumero(int x, int y) {
         if (this.getYmparillaOlevienMiinojenMaara(x, y) == 0) {
-            ruudukko[x][y].setTesti("0");
+            ruudukko[y][x].setTesti("0");
         }
         if (this.getYmparillaOlevienMiinojenMaara(x, y) == 1) {
-            ruudukko[x][y].setTesti("1");
+            ruudukko[y][x].setTesti("1");
         }
         if (this.getYmparillaOlevienMiinojenMaara(x, y) == 2) {
-            ruudukko[x][y].setTesti("2");
+            ruudukko[y][x].setTesti("2");
         }
         if (this.getYmparillaOlevienMiinojenMaara(x, y) == 3) {
-            ruudukko[x][y].setTesti("3");
+            ruudukko[y][x].setTesti("3");
         }
         if (this.getYmparillaOlevienMiinojenMaara(x, y) == 4) {
-            ruudukko[x][y].setTesti("4");
+            ruudukko[y][x].setTesti("4");
         }
         if (this.getYmparillaOlevienMiinojenMaara(x, y) == 5) {
-            ruudukko[x][y].setTesti("5");
+            ruudukko[y][x].setTesti("5");
         }
         if (this.getYmparillaOlevienMiinojenMaara(x, y) == 6) {
-            ruudukko[x][y].setTesti("6");
+            ruudukko[y][x].setTesti("6");
         }
         if (this.getYmparillaOlevienMiinojenMaara(x, y) == 7) {
-            ruudukko[x][y].setTesti("7");
+            ruudukko[y][x].setTesti("7");
         }
         if (this.getYmparillaOlevienMiinojenMaara(x, y) == 8) {
-            ruudukko[x][y].setTesti("8");
-        }
-    }
-
-    public void avaaYmparillaOlevat(int x, int y) {
-        if (x != 0 && x != this.leveys - 1 && y != 0 && y != this.korkeus - 1) {
-            if (ruudukko[x - 1][y].isOnkoRuudussaMiina() == false) {
-                ruudukko[x - 1][y].setAvattu(true);
-                this.merkitseNumero(x - 1, y);
-            }
-            if (ruudukko[x - 1][y - 1].isOnkoRuudussaMiina() == false) {
-                ruudukko[x - 1][y - 1].setAvattu(true);
-                this.merkitseNumero(x - 1, y - 1);
-            }
-            if (ruudukko[x - 1][y + 1].isOnkoRuudussaMiina() == false) {
-                ruudukko[x - 1][y + 1].setAvattu(true);
-                this.merkitseNumero(x - 1, y + 1);
-            }
-            if (ruudukko[x][y - 1].isOnkoRuudussaMiina() == false) {
-                ruudukko[x][y - 1].setAvattu(true);
-                this.merkitseNumero(x, y - 1);
-            }
-            if (ruudukko[x][y + 1].isOnkoRuudussaMiina() == false) {
-                ruudukko[x][y + 1].setAvattu(true);
-                this.merkitseNumero(x, y + 1);
-            }
-            if (ruudukko[x + 1][y].isOnkoRuudussaMiina() == false) {
-                ruudukko[x + 1][y].setAvattu(true);
-                this.merkitseNumero(x + 1, y);
-            }
-            if (ruudukko[x + 1][y - 1].isOnkoRuudussaMiina() == false) {
-                ruudukko[x + 1][y - 1].setAvattu(true);
-                this.merkitseNumero(x + 1, y - 1);
-            }
-            if (ruudukko[x + 1][y + 1].isOnkoRuudussaMiina() == false) {
-                ruudukko[x + 1][y + 1].setAvattu(true);
-                this.merkitseNumero(x + 1, y + 1);
-            }
-        } else if (x == 0 && y != 0 && y != this.korkeus - 1) {
-            if (ruudukko[x][y - 1].isOnkoRuudussaMiina() == false) {
-                ruudukko[x][y - 1].setAvattu(true);
-                this.merkitseNumero(x, y - 1);
-            }
-            if (ruudukko[x][y + 1].isOnkoRuudussaMiina() == false) {
-                ruudukko[x][y + 1].setAvattu(true);
-                this.merkitseNumero(x, y + 1);
-            }
-            if (ruudukko[x + 1][y].isOnkoRuudussaMiina() == false) {
-                ruudukko[x + 1][y].setAvattu(true);
-                this.merkitseNumero(x + 1, y);
-            }
-            if (ruudukko[x + 1][y - 1].isOnkoRuudussaMiina() == false) {
-                ruudukko[x + 1][y - 1].setAvattu(true);
-                this.merkitseNumero(x + 1, y - 1);
-            }
-            if (ruudukko[x + 1][y + 1].isOnkoRuudussaMiina() == false) {
-                ruudukko[x + 1][y + 1].setAvattu(true);
-                this.merkitseNumero(x + 1, y + 1);
-            }
-        } else if (x != 0 && x != this.leveys - 1 && y == 0) {
-            if (ruudukko[x - 1][y].isOnkoRuudussaMiina() == false) {
-                ruudukko[x - 1][y].setAvattu(true);
-                this.merkitseNumero(x - 1, y);
-            }
-            if (ruudukko[x + 1][y].isOnkoRuudussaMiina() == false) {
-                ruudukko[x + 1][y].setAvattu(true);
-                this.merkitseNumero(x + 1, y);
-            }
-            if (ruudukko[x - 1][y + 1].isOnkoRuudussaMiina() == false) {
-                ruudukko[x - 1][y + 1].setAvattu(true);
-                this.merkitseNumero(x - 1, y + 1);
-            }
-            if (ruudukko[x][y + 1].isOnkoRuudussaMiina() == false) {
-                ruudukko[x][y + 1].setAvattu(true);
-                this.merkitseNumero(x, y + 1);
-            }
-            if (ruudukko[x + 1][y + 1].isOnkoRuudussaMiina() == false) {
-                ruudukko[x + 1][y + 1].setAvattu(true);
-                this.merkitseNumero(x + 1, y + 1);
-            }
-        } else if (x == 0 && y == 0) {
-            if (ruudukko[x + 1][y].isOnkoRuudussaMiina() == false) {
-                ruudukko[x + 1][y].setAvattu(true);
-                this.merkitseNumero(x + 1, y);
-            }
-            if (ruudukko[x + 1][y + 1].isOnkoRuudussaMiina() == false) {
-                ruudukko[x + 1][y + 1].setAvattu(true);
-                this.merkitseNumero(x + 1, y + 1);
-            }
-            if (ruudukko[x][y + 1].isOnkoRuudussaMiina() == false) {
-                ruudukko[x][y + 1].setAvattu(true);
-                this.merkitseNumero(x, y + 1);
-            }
-        } else if (x == this.leveys - 1 && y == 0) {
-            if (ruudukko[x - 1][y].isOnkoRuudussaMiina() == false) {
-                ruudukko[x - 1][y].setAvattu(true);
-                this.merkitseNumero(x - 1, y);
-            }
-            if (ruudukko[x - 1][y + 1].isOnkoRuudussaMiina() == false) {
-                ruudukko[x - 1][y + 1].setAvattu(true);
-                this.merkitseNumero(x - 1, y + 1);
-            }
-            if (ruudukko[x][y + 1].isOnkoRuudussaMiina() == false) {
-                ruudukko[x][y + 1].setAvattu(true);
-                this.merkitseNumero(x, y + 1);
-            }
-        } else if (x == 0 && y == this.korkeus - 1) {
-            if (ruudukko[x][y - 1].isOnkoRuudussaMiina() == false) {
-                ruudukko[x][y - 1].setAvattu(true);
-                this.merkitseNumero(x, y - 1);
-            }
-            if (ruudukko[x + 1][y - 1].isOnkoRuudussaMiina() == false) {
-                ruudukko[x + 1][y - 1].setAvattu(true);
-                this.merkitseNumero(x + 1, y - 1);
-            }
-            if (ruudukko[x + 1][y].isOnkoRuudussaMiina() == false) {
-                ruudukko[x + 1][y].setAvattu(true);
-                this.merkitseNumero(x + 1, y);
-            }
-        } else if (x == this.leveys - 1 && y == this.korkeus - 1) {
-            if (ruudukko[x][y - 1].isOnkoRuudussaMiina() == false) {
-                ruudukko[x][y - 1].setAvattu(true);
-                this.merkitseNumero(x, y - 1);
-            }
-            if (ruudukko[x - 1][y - 1].isOnkoRuudussaMiina() == false) {
-                ruudukko[x - 1][y - 1].setAvattu(true);
-                this.merkitseNumero(x - 1, y - 1);
-            }
-            if (ruudukko[x - 1][y].isOnkoRuudussaMiina() == false) {
-                ruudukko[x - 1][y].setAvattu(true);
-                this.merkitseNumero(x - 1, y);
-            }
+            ruudukko[y][x].setTesti("8");
         }
     }
     
-    public void avatunRuudunKasittely(int x, int y) {
-        if (ruudukko[x][y].isOnkoRuudussaMiina() == true) {
-            ruudukko[x][y].setTesti("*");
-        }
+    public void avaaYmparillaOlevat2(int x, int y) {
+        int alkuX = Math.max(0, x - 1);
+        int alkuY = Math.max(0, y - 1);
+        int loppuX = Math.min(x + 1, this.leveys - 1);
+        int loppuY = Math.min(y + 1, this.korkeus - 1);
         
-        if (ruudukko[x][y].isOnkoRuudussaMiina() == false) {
-            this.merkitseNumero(x, y);
-        }
-        
-        if (ruudukko[x][y].isOnkoRuudussaMiina() == false && this.getYmparillaOlevienMiinojenMaara(x, y) == 0) {
-            this.avaaYmparillaOlevat(x, y);
+        for (int yi = alkuY; yi <= loppuY; yi++) {
+            for (int xi = alkuX; xi <= loppuX; xi++) {
+                if (yi == y && xi == x) {
+                    continue;
+                }
+                if (ruudukko[yi][xi].isOnkoRuudussaMiina() == false) {
+                    ruudukko[yi][xi].setAvattu(true);
+                    this.merkitseNumero(xi, yi);
+                }
+            }
         }
     }
+
+//    public void avaaYmparillaOlevat(int x, int y) {
+//        if (x != 0 && x != this.leveys - 1 && y != 0 && y != this.korkeus - 1) {
+//            if (ruudukko[x - 1][y].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x - 1][y].setAvattu(true);
+//                this.merkitseNumero(x - 1, y);
+//                
+//            }
+//            if (ruudukko[x - 1][y - 1].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x - 1][y - 1].setAvattu(true);
+//                this.merkitseNumero(x - 1, y - 1);
+//                
+//            }
+//            if (ruudukko[x - 1][y + 1].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x - 1][y + 1].setAvattu(true);
+//                this.merkitseNumero(x - 1, y + 1);
+//                
+//            }
+//            if (ruudukko[x][y - 1].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x][y - 1].setAvattu(true);
+//                this.merkitseNumero(x, y - 1);
+//                
+//            }
+//            if (ruudukko[x][y + 1].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x][y + 1].setAvattu(true);
+//                this.merkitseNumero(x, y + 1);
+//                
+//            }
+//            if (ruudukko[x + 1][y].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x + 1][y].setAvattu(true);
+//                this.merkitseNumero(x + 1, y);
+//                
+//            }
+//            if (ruudukko[x + 1][y - 1].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x + 1][y - 1].setAvattu(true);
+//                this.merkitseNumero(x + 1, y - 1);
+//                
+//            }
+//            if (ruudukko[x + 1][y + 1].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x + 1][y + 1].setAvattu(true);
+//                this.merkitseNumero(x + 1, y + 1);
+//                
+//            }
+//        } else if (x == 0 && y != 0 && y != this.korkeus - 1) {
+//            if (ruudukko[x][y - 1].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x][y - 1].setAvattu(true);
+//                this.merkitseNumero(x, y - 1);
+//                
+//            }
+//            if (ruudukko[x][y + 1].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x][y + 1].setAvattu(true);
+//                this.merkitseNumero(x, y + 1);
+//                
+//            }
+//            if (ruudukko[x + 1][y].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x + 1][y].setAvattu(true);
+//                this.merkitseNumero(x + 1, y);
+//                
+//            }
+//            if (ruudukko[x + 1][y - 1].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x + 1][y - 1].setAvattu(true);
+//                this.merkitseNumero(x + 1, y - 1);
+//                
+//            }
+//            if (ruudukko[x + 1][y + 1].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x + 1][y + 1].setAvattu(true);
+//                this.merkitseNumero(x + 1, y + 1);
+//                
+//            }
+//        } else if (x != 0 && x != this.leveys - 1 && y == 0) {
+//            if (ruudukko[x - 1][y].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x - 1][y].setAvattu(true);
+//                this.merkitseNumero(x - 1, y);
+//                
+//            }
+//            if (ruudukko[x + 1][y].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x + 1][y].setAvattu(true);
+//                this.merkitseNumero(x + 1, y);
+//                
+//            }
+//            if (ruudukko[x - 1][y + 1].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x - 1][y + 1].setAvattu(true);
+//                this.merkitseNumero(x - 1, y + 1);
+//                
+//            }
+//            if (ruudukko[x][y + 1].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x][y + 1].setAvattu(true);
+//                this.merkitseNumero(x, y + 1);
+//                
+//            }
+//            if (ruudukko[x + 1][y + 1].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x + 1][y + 1].setAvattu(true);
+//                this.merkitseNumero(x + 1, y + 1);
+//                
+//            }
+//        } else if (x == 0 && y == 0) {
+//            if (ruudukko[x + 1][y].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x + 1][y].setAvattu(true);
+//                this.merkitseNumero(x + 1, y);
+//                
+//            }
+//            if (ruudukko[x + 1][y + 1].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x + 1][y + 1].setAvattu(true);
+//                this.merkitseNumero(x + 1, y + 1);
+//                
+//            }
+//            if (ruudukko[x][y + 1].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x][y + 1].setAvattu(true);
+//                this.merkitseNumero(x, y + 1);
+//                
+//            }
+//        } else if (x == this.leveys - 1 && y == 0) {
+//            if (ruudukko[x - 1][y].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x - 1][y].setAvattu(true);
+//                this.merkitseNumero(x - 1, y);
+//                
+//            }
+//            if (ruudukko[x - 1][y + 1].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x - 1][y + 1].setAvattu(true);
+//                this.merkitseNumero(x - 1, y + 1);
+//                
+//            }
+//            if (ruudukko[x][y + 1].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x][y + 1].setAvattu(true);
+//                this.merkitseNumero(x, y + 1);
+//                
+//            }
+//        } else if (x == 0 && y == this.korkeus - 1) {
+//            if (ruudukko[x][y - 1].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x][y - 1].setAvattu(true);
+//                this.merkitseNumero(x, y - 1);
+//                
+//            }
+//            if (ruudukko[x + 1][y - 1].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x + 1][y - 1].setAvattu(true);
+//                this.merkitseNumero(x + 1, y - 1);
+//                
+//            }
+//            if (ruudukko[x + 1][y].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x + 1][y].setAvattu(true);
+//                this.merkitseNumero(x + 1, y);
+//                
+//            }
+//        } else if (x == this.leveys - 1 && y == this.korkeus - 1) {
+//            if (ruudukko[x][y - 1].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x][y - 1].setAvattu(true);
+//                this.merkitseNumero(x, y - 1);
+//                
+//            }
+//            if (ruudukko[x - 1][y - 1].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x - 1][y - 1].setAvattu(true);
+//                this.merkitseNumero(x - 1, y - 1);
+//                
+//            }
+//            if (ruudukko[x - 1][y].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x - 1][y].setAvattu(true);
+//                this.merkitseNumero(x - 1, y);
+//                
+//            }
+//        } else if (x != 0 && x != this.leveys - 1 && y == this.korkeus - 1) {
+//            if (ruudukko[x - 1][y].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x - 1][y].setAvattu(true);
+//                this.merkitseNumero(x - 1, y);
+//                
+//            }
+//            if (ruudukko[x + 1][y].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x + 1][y].setAvattu(true);
+//                this.merkitseNumero(x + 1, y);
+//                
+//            }
+//            if (ruudukko[x - 1][y - 1].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x - 1][y - 1].setAvattu(true);
+//                this.merkitseNumero(x - 1, y - 1);
+//                
+//            }
+//            if (ruudukko[x][y - 1].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x][y - 1].setAvattu(true);
+//                this.merkitseNumero(x, y - 1);
+//                
+//            }
+//            if (ruudukko[x + 1][y - 1].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x + 1][y - 1].setAvattu(true);
+//                this.merkitseNumero(x + 1, y - 1);
+//                
+//            }
+//        } else if (x == this.leveys - 1 && y != 0 && y != this.korkeus - 1) {
+//
+//
+//            if (ruudukko[x][y - 1].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x][y - 1].setAvattu(true);
+//                this.merkitseNumero(x, y - 1);
+//                
+//            }
+//            if (ruudukko[x][y + 1].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x][y + 1].setAvattu(true);
+//                this.merkitseNumero(x, y + 1);
+//                
+//            }
+//            if (ruudukko[x - 1][y].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x - 1][y].setAvattu(true);
+//                this.merkitseNumero(x - 1, y);
+//                
+//            }
+//            if (ruudukko[x - 1][y - 1].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x - 1][y - 1].setAvattu(true);
+//                this.merkitseNumero(x - 1, y - 1);
+//                
+//            }
+//            if (ruudukko[x - 1][y + 1].isOnkoRuudussaMiina() == false) {
+//                ruudukko[x - 1][y + 1].setAvattu(true);
+//                this.merkitseNumero(x - 1, y + 1);
+//                
+//            }
+//        }
+//    }
+//////
+    
+    
 }

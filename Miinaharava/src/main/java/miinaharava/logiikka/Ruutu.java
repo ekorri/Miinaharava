@@ -44,6 +44,12 @@ public class Ruutu {
         this.testi = arvo;
     }
 
+    public String getTesti() {
+        return testi;
+    }
+    
+    
+
     @Override
     public String toString() {
         return this.testi;
