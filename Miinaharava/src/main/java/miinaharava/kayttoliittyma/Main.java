@@ -1,6 +1,8 @@
 
 
-package miinaharava.logiikka;
+package miinaharava.kayttoliittyma;
+import miinaharava.kayttoliittyma.Peli;
+
 
 
 public class Main {

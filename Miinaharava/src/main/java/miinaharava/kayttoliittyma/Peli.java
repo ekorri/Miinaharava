@@ -1,6 +1,8 @@
-package miinaharava.logiikka;
+package miinaharava.kayttoliittyma;
 
 import java.util.Scanner;
+import miinaharava.logiikka.Pelilauta;
+import miinaharava.logiikka.Ruutu;
 
 public class Peli {
 
@@ -41,10 +43,10 @@ public class Peli {
 
                 }
                 if (vast.equals("liputetaan")) {
-                    System.out.print("Anna x-koordinaatti: ");
-                    int xKoordin = Integer.parseInt(lukija.nextLine());
                     System.out.print("Anna y-koordinaatti: ");
                     int yKoordin = Integer.parseInt(lukija.nextLine());
+                    System.out.print("Anna x-koordinaatti: ");
+                    int xKoordin = Integer.parseInt(lukija.nextLine());
                     lauta.liputaRuutu(xKoordin, yKoordin);
                 }
 

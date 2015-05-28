@@ -112,10 +112,27 @@ public class PelilautaTest {
     }
     
     @Test
+    public void avaaYmparillaOlevatToimiiOikein3() {
+        pelilauta.getRuutu(5, 6).setAvattu(true);
+        pelilauta.getRuutu(5, 6).setOnkoRuudussaMiina(false);
+        pelilauta.getRuutu(5, 4).setOnkoRuudussaMiina(false);
+        pelilauta.avaaYmparillaOlevat2(5, 6);
+        
+        assertEquals(true, pelilauta.getRuutu(5, 3).isAvattu());
+    }
+    
+    @Test
     public void liputaRuutuToimiiOikein() {
         pelilauta.getRuutu(5, 5).setOnkoLiputettu(true);
         
         assertEquals(true, pelilauta.getRuutu(5, 5).isOnkoLiputettu());
+    }
+    
+    @Test
+    public void liputaRuutuToimiiOikein2() {
+        pelilauta.getRuutu(6, 5).setOnkoLiputettu(true);
+        
+        assertEquals(true, pelilauta.getRuutu(6, 5).isOnkoLiputettu());
     }
     
     
