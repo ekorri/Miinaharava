@@ -64,10 +64,10 @@ public class Pelilauta {
             return;
         }
         ruudukko[y][x].setAvattu(true);
-        if (ruudukko[y][x].isOnkoRuudussaMiina() == true) {
-            ruudukko[y][x].setTesti("*");
-            return;
-        }
+//        if (ruudukko[y][x].isOnkoRuudussaMiina() == true) {
+//            ruudukko[y][x].setTesti("*");
+//            return;
+//        }
 
         if (ruudukko[y][x].isOnkoRuudussaMiina() == false) {
             this.merkitseNumero(x, y);
@@ -104,36 +104,41 @@ public class Pelilauta {
         }
         return laskuri;
     }
-
+    
     public void merkitseNumero(int x, int y) {
-        if (this.getYmparillaOlevienMiinojenMaara(x, y) == 0) {
-            ruudukko[y][x].setTesti("0");
-        }
-        if (this.getYmparillaOlevienMiinojenMaara(x, y) == 1) {
-            ruudukko[y][x].setTesti("1");
-        }
-        if (this.getYmparillaOlevienMiinojenMaara(x, y) == 2) {
-            ruudukko[y][x].setTesti("2");
-        }
-        if (this.getYmparillaOlevienMiinojenMaara(x, y) == 3) {
-            ruudukko[y][x].setTesti("3");
-        }
-        if (this.getYmparillaOlevienMiinojenMaara(x, y) == 4) {
-            ruudukko[y][x].setTesti("4");
-        }
-        if (this.getYmparillaOlevienMiinojenMaara(x, y) == 5) {
-            ruudukko[y][x].setTesti("5");
-        }
-        if (this.getYmparillaOlevienMiinojenMaara(x, y) == 6) {
-            ruudukko[y][x].setTesti("6");
-        }
-        if (this.getYmparillaOlevienMiinojenMaara(x, y) == 7) {
-            ruudukko[y][x].setTesti("7");
-        }
-        if (this.getYmparillaOlevienMiinojenMaara(x, y) == 8) {
-            ruudukko[y][x].setTesti("8");
-        }
+        String numero = "" + this.getYmparillaOlevienMiinojenMaara(x, y);
+        ruudukko[y][x].setTesti(numero);
     }
+
+//    public void merkitseNumero(int x, int y) {
+//        if (this.getYmparillaOlevienMiinojenMaara(x, y) == 0) {
+//            ruudukko[y][x].setTesti("0");
+//        }
+//        if (this.getYmparillaOlevienMiinojenMaara(x, y) == 1) {
+//            ruudukko[y][x].setTesti("1");
+//        }
+//        if (this.getYmparillaOlevienMiinojenMaara(x, y) == 2) {
+//            ruudukko[y][x].setTesti("2");
+//        }
+//        if (this.getYmparillaOlevienMiinojenMaara(x, y) == 3) {
+//            ruudukko[y][x].setTesti("3");
+//        }
+//        if (this.getYmparillaOlevienMiinojenMaara(x, y) == 4) {
+//            ruudukko[y][x].setTesti("4");
+//        }
+//        if (this.getYmparillaOlevienMiinojenMaara(x, y) == 5) {
+//            ruudukko[y][x].setTesti("5");
+//        }
+//        if (this.getYmparillaOlevienMiinojenMaara(x, y) == 6) {
+//            ruudukko[y][x].setTesti("6");
+//        }
+//        if (this.getYmparillaOlevienMiinojenMaara(x, y) == 7) {
+//            ruudukko[y][x].setTesti("7");
+//        }
+//        if (this.getYmparillaOlevienMiinojenMaara(x, y) == 8) {
+//            ruudukko[y][x].setTesti("8");
+//        }
+//    }
 
     public void avaaYmparillaOlevat2(int x, int y) {
         int alkuX = Math.max(0, x - 1);
@@ -160,5 +165,30 @@ public class Pelilauta {
         }
     }
 
-
+    public boolean onkoKaikkiAvattu() {
+        int kaikkiAvattu = this.korkeus * this.leveys - this.miinoja;
+        int laskuri = 0;
+        
+        for (int i = 0; i < this.korkeus; i++) {
+            for (int j = 0; j < this.leveys; j++) {
+                if (ruudukko[i][j].isAvattu()) {
+                    laskuri++;
+                }
+            }
+        }
+        if (kaikkiAvattu - laskuri == 0) {
+            return true;
+        } 
+        return false;
+    }
+    
+    public void naytaMiinat() {
+        for (int i = 0; i < this.korkeus; i++) {
+            for (int j = 0; j < leveys; j++) {
+                if (ruudukko[i][j].isOnkoRuudussaMiina()) {
+                    ruudukko[i][j].setTesti("*");
+                } 
+            }
+        }
+    }
 }

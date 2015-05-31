@@ -36,6 +36,7 @@ public class Peli {
                     lauta.avaaRuutu(xKoordin, yKoordin);
                     Ruutu avattava = lauta.getRuutu(xKoordin, yKoordin);
                     if (avattava.isOnkoRuudussaMiina() == true) {
+                        lauta.naytaMiinat();
                         lauta.tulostaRuudukko();
                         System.out.println("Räjähdit, peli loppuu!");
                         break;
