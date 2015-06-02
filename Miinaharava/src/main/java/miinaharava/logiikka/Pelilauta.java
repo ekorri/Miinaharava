@@ -48,11 +48,17 @@ public class Pelilauta {
     public Ruutu getRuutu(int x, int y) {
         return ruudukko[y][x];
     }
-
+    
     public void asetaMiinat() {
-        for (int i = 0; i < this.miinoja; i++) {
-            Miina miina = new Miina(random.nextInt(this.korkeus), random.nextInt(this.leveys));
-            ruudukko[miina.getyKoordinaatti()][miina.getxKoordinaatti()].setOnkoRuudussaMiina(true);
+        int i = 0;
+        while (i < this.miinoja) {
+            Ruutu miinoitettava = ruudukko[random.nextInt(this.korkeus)][random.nextInt(this.leveys)];
+            if (miinoitettava.isOnkoRuudussaMiina() == false) {
+                miinoitettava.setOnkoRuudussaMiina(true);
+                i++;
+            }
+            
+
         }
     }
 
@@ -64,10 +70,6 @@ public class Pelilauta {
             return;
         }
         ruudukko[y][x].setAvattu(true);
-//        if (ruudukko[y][x].isOnkoRuudussaMiina() == true) {
-//            ruudukko[y][x].setTesti("*");
-//            return;
-//        }
 
         if (ruudukko[y][x].isOnkoRuudussaMiina() == false) {
             this.merkitseNumero(x, y);
@@ -109,36 +111,6 @@ public class Pelilauta {
         String numero = "" + this.getYmparillaOlevienMiinojenMaara(x, y);
         ruudukko[y][x].setTesti(numero);
     }
-
-//    public void merkitseNumero(int x, int y) {
-//        if (this.getYmparillaOlevienMiinojenMaara(x, y) == 0) {
-//            ruudukko[y][x].setTesti("0");
-//        }
-//        if (this.getYmparillaOlevienMiinojenMaara(x, y) == 1) {
-//            ruudukko[y][x].setTesti("1");
-//        }
-//        if (this.getYmparillaOlevienMiinojenMaara(x, y) == 2) {
-//            ruudukko[y][x].setTesti("2");
-//        }
-//        if (this.getYmparillaOlevienMiinojenMaara(x, y) == 3) {
-//            ruudukko[y][x].setTesti("3");
-//        }
-//        if (this.getYmparillaOlevienMiinojenMaara(x, y) == 4) {
-//            ruudukko[y][x].setTesti("4");
-//        }
-//        if (this.getYmparillaOlevienMiinojenMaara(x, y) == 5) {
-//            ruudukko[y][x].setTesti("5");
-//        }
-//        if (this.getYmparillaOlevienMiinojenMaara(x, y) == 6) {
-//            ruudukko[y][x].setTesti("6");
-//        }
-//        if (this.getYmparillaOlevienMiinojenMaara(x, y) == 7) {
-//            ruudukko[y][x].setTesti("7");
-//        }
-//        if (this.getYmparillaOlevienMiinojenMaara(x, y) == 8) {
-//            ruudukko[y][x].setTesti("8");
-//        }
-//    }
 
     public void avaaYmparillaOlevat2(int x, int y) {
         int alkuX = Math.max(0, x - 1);
