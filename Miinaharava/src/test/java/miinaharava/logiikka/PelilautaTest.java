@@ -128,6 +128,11 @@ public class PelilautaTest {
     }
     
     @Test
+    public void liputaRuutuToimiiOikein3() {      
+        
+    }
+    
+    @Test
     public void merkitseNumeroToimiiOikein() {
         pelilauta.getRuutu(4, 5).setOnkoRuudussaMiina(true);
         pelilauta.getRuutu(5, 5).setOnkoRuudussaMiina(true);
@@ -135,6 +140,9 @@ public class PelilautaTest {
         assertEquals(2, pelilauta.getYmparillaOlevienMiinojenMaara(4, 4));
     }
     
-    
+    @Test
+    public void naytaMiinatToimiiOikein() {
+        
+    }
     
 }

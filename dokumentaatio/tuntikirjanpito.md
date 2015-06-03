@@ -10,3 +10,8 @@ Merkitse aina vähintään päivämäärä, käyttämäsi aika ja ajankäytön k
 24.5. 4 h koodin kirjoittamista ja pois pyyhkimistä
 26.5. 6 h koodin kirjoittamista ja uudelleenkirjoittamista
 27.5. 6 h tuskailua koodin kanssa, refaktorointia ja testien kirjoittamista
+28.5. 2 h koodin ja testien kirjoittamista
+30.5. 1 h koodin refaktorointia
+31.5. 4 h koodikatselmointi ja oman koodin ihmettelyä
+2.6. 5 h koodin kirjoittamista, graafisen käyttöliittymän ihmettelyä
+3.6. 6 h yritystä opiskella graafisen käyttöliittymän ihmeitä ja vähän lisää koodia

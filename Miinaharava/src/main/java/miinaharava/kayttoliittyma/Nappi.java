@@ -14,17 +14,22 @@ import javax.swing.JButton;
  *
  * @author ekorri
  */
-public class Tapahtumakuuntelija implements ActionListener {
+public class Nappi extends JButton implements ActionListener{
     
-    private JButton nappi;
+    private int x;
+    private int y;
+    private Kayttoliittyma kayttoliittyma;
     
-    public Tapahtumakuuntelija(JButton nappi) {
-        this.nappi = nappi;
+    public Nappi(int x, int y, Kayttoliittyma kayttoliittyma) {
+        addActionListener(this);
+        this.x = x;
+        this.y = y;
+        this.kayttoliittyma = kayttoliittyma;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        this.nappi.setText("*");
+        
     }
     
 }

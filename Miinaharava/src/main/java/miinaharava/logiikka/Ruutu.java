@@ -1,5 +1,9 @@
 package miinaharava.logiikka;
 
+/**
+ *
+ * @author ekorri
+ */
 public class Ruutu {
 
     

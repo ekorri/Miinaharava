@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
+import miinaharava.logiikka.Pelilauta;
 
 /**
  *
@@ -24,6 +25,8 @@ import javax.swing.WindowConstants;
 public class Kayttoliittyma implements Runnable{
     
     private JFrame frame;
+    private JButton[][] ruudukko = new JButton[10][10];
+    private Pelilauta lauta;
 
     @Override
     public void run() {
@@ -33,6 +36,8 @@ public class Kayttoliittyma implements Runnable{
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         
         luoKomponentit(frame.getContentPane());
+        
+        this.lauta = new Pelilauta(10, 10, 10);
         
         frame.pack();
         frame.setVisible(true);
@@ -49,10 +54,8 @@ public class Kayttoliittyma implements Runnable{
         JPanel panel = new JPanel(new GridLayout(10, 10));
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                JButton nappi = new JButton();
-                Tapahtumakuuntelija kuuntelija = new Tapahtumakuuntelija(nappi);
-                nappi.addActionListener(kuuntelija);
-                panel.add(nappi);
+                ruudukko[i][j] = new Nappi(j, i, this);
+                panel.add(ruudukko[i][j]);
             }
         }
         return panel;
