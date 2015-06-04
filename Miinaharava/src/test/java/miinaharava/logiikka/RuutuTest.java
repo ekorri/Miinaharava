@@ -48,21 +48,21 @@ public class RuutuTest {
     public void konstruktoriToimiiOikeinAvattu() {
         ruutu.setAvattu(true);
         
-        assertEquals(true, ruutu.isAvattu());
+        assertEquals(true, ruutu.avattu());
     }
     
     @Test
     public void konstruktoriToimiiOikeinOnkoRuudussaMiina() {
         ruutu.setOnkoRuudussaMiina(true);
         
-        assertEquals(true, ruutu.isOnkoRuudussaMiina());
+        assertEquals(true, ruutu.onkoRuudussaMiina());
     }
     
     @Test
     public void konstruktoriToimiiOikeinOnkoLiputettu() {
         ruutu.setOnkoLiputettu(true);
         
-        assertEquals(true, ruutu.isOnkoLiputettu());
+        assertEquals(true, ruutu.onkoLiputettu());
     }
     
     

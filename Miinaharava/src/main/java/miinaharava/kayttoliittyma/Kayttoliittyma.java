@@ -19,7 +19,8 @@ import javax.swing.WindowConstants;
 import miinaharava.logiikka.Pelilauta;
 
 /**
- *
+ * Tämä luokka luo Miinaharava-pelin graafisen käyttöliittymän.
+ * 
  * @author ekorri
  */
 public class Kayttoliittyma implements Runnable{

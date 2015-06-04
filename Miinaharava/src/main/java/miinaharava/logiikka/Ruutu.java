@@ -1,8 +1,10 @@
 package miinaharava.logiikka;
 
 /**
- *
- * @author ekorri
+ * Tämä luokka luo ruudun, joista pelin pelilauta koostuu. Ruutu tietää oman
+ * tilansa: onko se avattu, onko siinä, miina tai lippu.
+ * 
+ * @author Eevastiina Korri
  */
 public class Ruutu {
 
@@ -10,17 +12,17 @@ public class Ruutu {
     private boolean avattu;
     private boolean onkoRuudussaMiina;
     private boolean onkoLiputettu;
-    private String testi;
+    private String arvo;
 
-    public Ruutu(String testi) {        
+    public Ruutu(String arvo) {        
         this.avattu = false;
         this.onkoRuudussaMiina = false;
         this.onkoLiputettu = false;
-        this.testi = testi;
+        this.arvo = arvo;
 
     }
 
-    public boolean isAvattu() {
+    public boolean avattu() {
         return avattu;
     }
 
@@ -28,7 +30,7 @@ public class Ruutu {
         this.avattu = avattu;
     }
 
-    public boolean isOnkoRuudussaMiina() {
+    public boolean onkoRuudussaMiina() {
         return onkoRuudussaMiina;
     }
 
@@ -36,7 +38,7 @@ public class Ruutu {
         this.onkoRuudussaMiina = onkoRuudussaMiina;
     }
 
-    public boolean isOnkoLiputettu() {
+    public boolean onkoLiputettu() {
         return onkoLiputettu;
     }
 
@@ -44,19 +46,19 @@ public class Ruutu {
         this.onkoLiputettu = onkoLiputettu;
     }
 
-    public void setTesti(String arvo) {
-        this.testi = arvo;
+    public void setArvo(String arvo) {
+        this.arvo = arvo;
     }
 
-    public String getTesti() {
-        return testi;
+    public String getArvo() {
+        return arvo;
     }
     
     
 
     @Override
     public String toString() {
-        return this.testi;
+        return this.arvo;
     }
 
 }

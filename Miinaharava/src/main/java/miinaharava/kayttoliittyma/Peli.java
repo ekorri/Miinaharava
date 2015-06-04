@@ -4,6 +4,11 @@ import java.util.Scanner;
 import miinaharava.logiikka.Pelilauta;
 import miinaharava.logiikka.Ruutu;
 
+/**
+ * Tämä luokka on tekstipohjainen käyttöliittymä Miinaharava-pelille.
+ * 
+ * @author Eevastiina Korri
+ */
 public class Peli {
 
     private Pelilauta lauta;
@@ -27,15 +32,15 @@ public class Peli {
             String vastaus = lukija.nextLine();
             if (vastaus.equals("kylla")) {
                 System.out.print("Avataanko vai liputetaanko? ");
-                String vast = lukija.nextLine();
-                if (vast.equals("avataan")) {
+                String vastaus2 = lukija.nextLine();
+                if (vastaus2.equals("avataan")) {
                     System.out.print("Anna y-koordinaatti: ");
-                    int yKoordin = Integer.parseInt(lukija.nextLine());
+                    int y = Integer.parseInt(lukija.nextLine());
                     System.out.print("Anna x-koordinaatti: ");
-                    int xKoordin = Integer.parseInt(lukija.nextLine());
-                    lauta.avaaRuutu(xKoordin, yKoordin);
-                    Ruutu avattava = lauta.getRuutu(xKoordin, yKoordin);
-                    if (avattava.isOnkoRuudussaMiina() == true) {
+                    int x = Integer.parseInt(lukija.nextLine());
+                    lauta.avaaRuutu(x, y);
+                    Ruutu avattava = lauta.getRuutu(x, y);
+                    if (avattava.onkoRuudussaMiina() == true) {
                         lauta.naytaMiinat();
                         lauta.tulostaRuudukko();
                         System.out.println("Räjähdit, peli loppuu!");
@@ -43,12 +48,12 @@ public class Peli {
                     }
 
                 }
-                if (vast.equals("liputetaan")) {
+                if (vastaus2.equals("liputetaan")) {
                     System.out.print("Anna y-koordinaatti: ");
-                    int yKoordin = Integer.parseInt(lukija.nextLine());
+                    int y = Integer.parseInt(lukija.nextLine());
                     System.out.print("Anna x-koordinaatti: ");
-                    int xKoordin = Integer.parseInt(lukija.nextLine());
-                    lauta.liputaRuutu(xKoordin, yKoordin);
+                    int x = Integer.parseInt(lukija.nextLine());
+                    lauta.liputaRuutu(x, y);
                 }
 
             }

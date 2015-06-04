@@ -3,6 +3,13 @@ package miinaharava.logiikka;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Tämä luokka luo peli pelilaudan ja luokan metodit suorittavat pelilautaan
+ * olennaisesti kuuluvan pelilogiikan, kuten ruutujen tilan tarkistuksen ja
+ * sen muuttamisen.
+ * 
+ * @author Eevastiina Korri
+ */
 public class Pelilauta {
 
     private int leveys;
@@ -53,7 +60,7 @@ public class Pelilauta {
         int i = 0;
         while (i < this.miinoja) {
             Ruutu miinoitettava = ruudukko[random.nextInt(this.korkeus)][random.nextInt(this.leveys)];
-            if (miinoitettava.isOnkoRuudussaMiina() == false) {
+            if (miinoitettava.onkoRuudussaMiina() == false) {
                 miinoitettava.setOnkoRuudussaMiina(true);
                 i++;
             }
@@ -66,25 +73,28 @@ public class Pelilauta {
         if (x < 0 || x > this.leveys - 1 || y < 0 || y > this.korkeus - 1) {
             return;
         }
-        if (ruudukko[y][x].isAvattu() == true) {
+        if (ruudukko[y][x].avattu() == true) {
             return;
         }
         ruudukko[y][x].setAvattu(true);
 
-        if (ruudukko[y][x].isOnkoRuudussaMiina() == false) {
+        if (ruudukko[y][x].onkoRuudussaMiina() == false) {
             this.merkitseNumero(x, y);
 
         }
-        if (ruudukko[y][x].isOnkoRuudussaMiina() == false && this.getYmparillaOlevienMiinojenMaara(x, y) == 0) {
+        if (ruudukko[y][x].onkoRuudussaMiina() == false && this.getYmparillaOlevienMiinojenMaara(x, y) == 0) {
             this.merkitseNumero(x, y);
-            this.avaaYmparillaOlevat2(x, y);
+            this.avaaYmparillaOlevat(x, y);
         }
 
     }
 
     public void liputaRuutu(int x, int y) {
+        if (ruudukko[y][x].onkoLiputettu()) {
+            return;
+        }
         ruudukko[y][x].setOnkoLiputettu(true);
-        ruudukko[y][x].setTesti("P");
+        ruudukko[y][x].setArvo("P");
     }
 
     public int getYmparillaOlevienMiinojenMaara(int x, int y) {
@@ -99,7 +109,7 @@ public class Pelilauta {
                 if (yi == y && xi == x) {
                     continue;
                 }
-                if (ruudukko[yi][xi].isOnkoRuudussaMiina() == true) {
+                if (ruudukko[yi][xi].onkoRuudussaMiina() == true) {
                     laskuri++;
                 }
             }
@@ -109,10 +119,10 @@ public class Pelilauta {
     
     public void merkitseNumero(int x, int y) {
         String numero = "" + this.getYmparillaOlevienMiinojenMaara(x, y);
-        ruudukko[y][x].setTesti(numero);
+        ruudukko[y][x].setArvo(numero);
     }
 
-    public void avaaYmparillaOlevat2(int x, int y) {
+    public void avaaYmparillaOlevat(int x, int y) {
         int alkuX = Math.max(0, x - 1);
         int alkuY = Math.max(0, y - 1);
         int loppuX = Math.min(x + 1, this.leveys - 1);
@@ -120,17 +130,17 @@ public class Pelilauta {
 
         for (int yi = alkuY; yi <= loppuY; yi++) {
             for (int xi = alkuX; xi <= loppuX; xi++) {
-                if (ruudukko[yi][xi].isAvattu()) {
+                if (ruudukko[yi][xi].avattu()) {
                     continue;
                 }
                 if (yi == y && xi == x) {
                     continue;
                 }
-                if (ruudukko[yi][xi].isOnkoRuudussaMiina() == false) {
+                if (ruudukko[yi][xi].onkoRuudussaMiina() == false) {
                     ruudukko[yi][xi].setAvattu(true);
                     this.merkitseNumero(xi, yi);
                     if (this.getYmparillaOlevienMiinojenMaara(xi, yi) == 0) {
-                        avaaYmparillaOlevat2(xi, yi);
+                        avaaYmparillaOlevat(xi, yi);
                     }
                 }
             }
@@ -143,7 +153,7 @@ public class Pelilauta {
         
         for (int i = 0; i < this.korkeus; i++) {
             for (int j = 0; j < this.leveys; j++) {
-                if (ruudukko[i][j].isAvattu()) {
+                if (ruudukko[i][j].avattu()) {
                     laskuri++;
                 }
             }
@@ -157,8 +167,8 @@ public class Pelilauta {
     public void naytaMiinat() {
         for (int i = 0; i < this.korkeus; i++) {
             for (int j = 0; j < leveys; j++) {
-                if (ruudukko[i][j].isOnkoRuudussaMiina()) {
-                    ruudukko[i][j].setTesti("*");
+                if (ruudukko[i][j].onkoRuudussaMiina()) {
+                    ruudukko[i][j].setArvo("*");
                 } 
             }
         }
