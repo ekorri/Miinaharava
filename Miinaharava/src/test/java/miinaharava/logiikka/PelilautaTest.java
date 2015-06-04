@@ -76,6 +76,14 @@ public class PelilautaTest {
     }
     
     @Test
+    public void avaaRuutuJossaMiinaToimiiOikein() {
+        pelilauta.getRuutu(5, 6).setOnkoRuudussaMiina(true);
+        pelilauta.avaaRuutu(5, 6);
+        
+        assertEquals("*", pelilauta.getRuutu(5, 6).getArvo());
+    }
+    
+    @Test
     public void getYmparillaOlevienMiinojenMaaraToimiiOikein() {
         pelilauta.getRuutu(5, 5).setOnkoRuudussaMiina(true);
         pelilauta.getRuutu(5, 4).setOnkoRuudussaMiina(true);
@@ -138,13 +146,45 @@ public class PelilautaTest {
     public void merkitseNumeroToimiiOikein() {
         pelilauta.getRuutu(4, 5).setOnkoRuudussaMiina(true);
         pelilauta.getRuutu(5, 5).setOnkoRuudussaMiina(true);
+        pelilauta.merkitseNumero(4, 4);
         
-        assertEquals(2, pelilauta.getYmparillaOlevienMiinojenMaara(4, 4));
+        assertEquals("2", pelilauta.getRuutu(4, 4).getArvo());
+    }
+    
+    @Test
+    public void onkoKaikkiAvattuToimiiOikein() {
+        pelilauta.asetaMiinat();
+        for (int i = 0; i < pelilauta.getKorkeus(); i++) {
+            for (int j = 0; j < pelilauta.getLeveys(); j++) {
+                if (pelilauta.getRuutu(j, i).onkoRuudussaMiina() == false) {
+                    pelilauta.getRuutu(j, i).setAvattu(true);
+                }
+            }
+        }
+        
+        assertEquals(true, pelilauta.onkoKaikkiAvattu());
+    }
+    
+    @Test
+    public void onkoKaikkiAvattuToimiiOikein2() {
+        pelilauta.asetaMiinat();
+        for (int i = 0; i < pelilauta.getKorkeus() - 2; i++) {
+            for (int j = 0; j < pelilauta.getLeveys() - 2; j++) {
+                if (pelilauta.getRuutu(j, i).onkoRuudussaMiina() == false) {
+                    pelilauta.getRuutu(j, i).setAvattu(true);
+                }
+            }
+        }
+        
+        assertEquals(false, pelilauta.onkoKaikkiAvattu());
     }
     
     @Test
     public void naytaMiinatToimiiOikein() {
+        pelilauta.getRuutu(4, 4).setOnkoRuudussaMiina(true);
+        pelilauta.naytaMiinat();
         
+        assertEquals("*", pelilauta.getRuutu(4, 4).getArvo());
     }
     
 }

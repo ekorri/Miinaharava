@@ -5,7 +5,7 @@ import miinaharava.logiikka.Pelilauta;
 import miinaharava.logiikka.Ruutu;
 
 /**
- * Tämä luokka on tekstipohjainen käyttöliittymä Miinaharava-pelille.
+ * Luokka on tekstipohjainen käyttöliittymä Miinaharava-pelille.
  * 
  * @author Eevastiina Korri
  */

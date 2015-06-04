@@ -1,7 +1,7 @@
 package miinaharava.logiikka;
 
 /**
- * Tämä luokka luo ruudun, joista pelin pelilauta koostuu. Ruutu tietää oman
+ * Luokka luo ruudun, joista pelin pelilauta koostuu. Ruutu tietää oman
  * tilansa: onko se avattu, onko siinä, miina tai lippu.
  * 
  * @author Eevastiina Korri
@@ -21,15 +21,29 @@ public class Ruutu {
         this.arvo = arvo;
 
     }
-
+    
+    /**
+     * Metodi kertoo, onko ruutu avattu.
+     * 
+     * @return true tai false, sen mukaan onko ruutu avattu vai ei
+     */
     public boolean avattu() {
         return avattu;
     }
-
+    
+    /**
+     * Metodi asettaa ruudun avatuksi
+     * @param avattu 
+     */
     public void setAvattu(boolean avattu) {
         this.avattu = avattu;
     }
-
+    
+    /**
+     * Metodi kertoo onko ruudussa miina.
+     * 
+     * @return true tai false sen mukaan onko ruudussa miina vai ei 
+     */
     public boolean onkoRuudussaMiina() {
         return onkoRuudussaMiina;
     }

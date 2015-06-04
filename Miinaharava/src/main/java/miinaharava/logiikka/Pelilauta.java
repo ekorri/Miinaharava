@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Tämä luokka luo peli pelilaudan ja luokan metodit suorittavat pelilautaan
+ * Luokka luo pelin pelilaudan ja luokan metodit suorittavat pelilautaan
  * olennaisesti kuuluvan pelilogiikan, kuten ruutujen tilan tarkistuksen ja
  * sen muuttamisen.
  * 
@@ -17,7 +17,15 @@ public class Pelilauta {
     private int miinoja;
     private Random random;
     private Ruutu[][] ruudukko;
-
+    
+    /**
+     * Konstruktori
+     * 
+     * Luo uuden pelilaudan
+     * @param leveys pelilaudan leveys ruutuina
+     * @param korkeus pelilaudan korkeus ruutuina
+     * @param miinoja miinojen määrä
+     */
     public Pelilauta(int leveys, int korkeus, int miinoja) {
         this.leveys = leveys;
         this.korkeus = korkeus;
@@ -26,7 +34,7 @@ public class Pelilauta {
         this.ruudukko = new Ruutu[this.korkeus][this.leveys];
         for (int i = 0; i < this.korkeus; i++) {
             for (int j = 0; j < this.leveys; j++) {
-                ruudukko[i][j] = new Ruutu("X");
+                ruudukko[i][j] = new Ruutu(" ");
             }
         }
     }
@@ -56,6 +64,9 @@ public class Pelilauta {
         return ruudukko[y][x];
     }
     
+    /**
+     * Metodi arpoo miinojen paikat ja asettaa ne pelilaudalle
+     */
     public void asetaMiinat() {
         int i = 0;
         while (i < this.miinoja) {
@@ -68,7 +79,14 @@ public class Pelilauta {
 
         }
     }
-
+    
+    /**
+     * Metodi asettaa ruudun avatuksi ja tarkistaa, onko mikä arvo ruudussa on;
+     * kuinka monta miinaa ruudun lähellä on.
+     * 
+     * @param x käsiteltävän ruudun x-koordinaatti
+     * @param y käsiteltävän ruudun y-koordinaatti
+     */
     public void avaaRuutu(int x, int y) {
         if (x < 0 || x > this.leveys - 1 || y < 0 || y > this.korkeus - 1) {
             return;
@@ -77,6 +95,10 @@ public class Pelilauta {
             return;
         }
         ruudukko[y][x].setAvattu(true);
+        
+        if (ruudukko[y][x].onkoRuudussaMiina() == true) {
+            this.naytaMiinat();
+        }
 
         if (ruudukko[y][x].onkoRuudussaMiina() == false) {
             this.merkitseNumero(x, y);
@@ -88,7 +110,13 @@ public class Pelilauta {
         }
 
     }
-
+    
+    /**
+     * Metodi asettaa merkin ruutuun, jossa oletetaan olevan miina.
+     * 
+     * @param x käsiteltävän ruudun x-koordinaatti
+     * @param y käsiteltävän ruudun y-koordinaatti
+     */
     public void liputaRuutu(int x, int y) {
         if (ruudukko[y][x].onkoLiputettu()) {
             return;
@@ -96,7 +124,14 @@ public class Pelilauta {
         ruudukko[y][x].setOnkoLiputettu(true);
         ruudukko[y][x].setArvo("P");
     }
-
+    
+    /**
+     * Metodi laskee ruudun ympärillä olevien miinan sisältävien ruutujen määrän.
+     * 
+     * @param x käsiteltävän ruudun x-koordinaatti
+     * @param y käsiteltävän ruudun y-koordinaatti
+     * @return käsiteltävän ruudun ympärillä olevien miinan sisältävien ruutujen määrä
+     */
     public int getYmparillaOlevienMiinojenMaara(int x, int y) {
         int alkuX = Math.max(0, x - 1);
         int alkuY = Math.max(0, y - 1);
@@ -117,11 +152,23 @@ public class Pelilauta {
         return laskuri;
     }
     
+    /**
+     * Metodi merkitsee ruutuun numeron, joka vastaa siihen yhteydessä olevien
+     * miinan sisältävien ruutujen määrää.
+     * @param x
+     * @param y 
+     */
     public void merkitseNumero(int x, int y) {
         String numero = "" + this.getYmparillaOlevienMiinojenMaara(x, y);
         ruudukko[y][x].setArvo(numero);
     }
-
+    
+    /**
+     * Metodi avaa kaikki käsiteltävään ruutuun yhteydessä olevat ruudut, jotka
+     * eivät sisällä miinaa.
+     * @param x
+     * @param y 
+     */
     public void avaaYmparillaOlevat(int x, int y) {
         int alkuX = Math.max(0, x - 1);
         int alkuY = Math.max(0, y - 1);

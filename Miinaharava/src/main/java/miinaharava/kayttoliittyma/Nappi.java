@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 /**
- * Tämä luokka luo graafisessa käyttöliittymässä luotavan JButtoneista
+ * Luokka luo graafisessa käyttöliittymässä luotavan JButtoneista
  * koostuvan ruudukon osat.
  * 
  * @author ekorri
@@ -31,7 +31,7 @@ public class Nappi extends JButton implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+        kayttoliittyma.klikkaaRuutua(x, y);
     }
     
 }

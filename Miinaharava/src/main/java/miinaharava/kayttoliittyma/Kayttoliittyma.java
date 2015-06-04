@@ -19,14 +19,14 @@ import javax.swing.WindowConstants;
 import miinaharava.logiikka.Pelilauta;
 
 /**
- * Tämä luokka luo Miinaharava-pelin graafisen käyttöliittymän.
+ * Luokka luo Miinaharava-pelin graafisen käyttöliittymän.
  * 
  * @author ekorri
  */
 public class Kayttoliittyma implements Runnable{
     
     private JFrame frame;
-    private JButton[][] ruudukko = new JButton[10][10];
+    private JButton[][] ruudukko = new JButton[9][9];
     private Pelilauta lauta;
 
     @Override
@@ -38,7 +38,8 @@ public class Kayttoliittyma implements Runnable{
         
         luoKomponentit(frame.getContentPane());
         
-        this.lauta = new Pelilauta(10, 10, 10);
+        this.lauta = new Pelilauta(9, 9, 10);
+        this.lauta.asetaMiinat();
         
         frame.pack();
         frame.setVisible(true);
@@ -52,9 +53,9 @@ public class Kayttoliittyma implements Runnable{
     }
     
     private JPanel luoRuudukko() {
-        JPanel panel = new JPanel(new GridLayout(10, 10));
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
+        JPanel panel = new JPanel(new GridLayout(9, 9));
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
                 ruudukko[i][j] = new Nappi(j, i, this);
                 panel.add(ruudukko[i][j]);
             }
@@ -64,6 +65,19 @@ public class Kayttoliittyma implements Runnable{
     
     public JFrame getFrame() {
         return frame;
+    }
+    
+    public void klikkaaRuutua(int x, int y) {
+        lauta.avaaRuutu(x, y);
+        paivitaNapit();
+    }
+    
+    public void paivitaNapit() {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                ruudukko[i][j].setText(lauta.getRuutu(j, i).getArvo());
+            }
+        }
     }
     
 }
