@@ -6,8 +6,8 @@
 
 package miinaharava.kayttoliittyma;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.JButton;
 
 /**
@@ -16,22 +16,43 @@ import javax.swing.JButton;
  * 
  * @author ekorri
  */
-public class Nappi extends JButton implements ActionListener{
+public class Nappi extends JButton implements MouseListener{
     
     private int x;
     private int y;
     private Kayttoliittyma kayttoliittyma;
     
     public Nappi(int x, int y, Kayttoliittyma kayttoliittyma) {
-        addActionListener(this);
+        addMouseListener(this);
         this.x = x;
         this.y = y;
         this.kayttoliittyma = kayttoliittyma;
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        kayttoliittyma.klikkaaRuutua(x, y);
+    public void mouseClicked(MouseEvent e) {
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        if (e.getButton() == 1) {
+            kayttoliittyma.klikkaaRuutua(x, y);
+        }
+        if (e.getButton() == 3) {
+            kayttoliittyma.klikkaaRuutuaOikealla(x, y);
+        }
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
     }
     
 }

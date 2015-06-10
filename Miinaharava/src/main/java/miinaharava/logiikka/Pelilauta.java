@@ -5,9 +5,9 @@ import java.util.Random;
 
 /**
  * Luokka luo pelin pelilaudan ja luokan metodit suorittavat pelilautaan
- * olennaisesti kuuluvan pelilogiikan, kuten ruutujen tilan tarkistuksen ja
- * sen muuttamisen.
- * 
+ * olennaisesti kuuluvan pelilogiikan, kuten ruutujen tilan tarkistuksen ja sen
+ * muuttamisen.
+ *
  * @author Eevastiina Korri
  */
 public class Pelilauta {
@@ -17,11 +17,12 @@ public class Pelilauta {
     private int miinoja;
     private Random random;
     private Ruutu[][] ruudukko;
-    
+
     /**
      * Konstruktori
-     * 
+     *
      * Luo uuden pelilaudan
+     *
      * @param leveys pelilaudan leveys ruutuina
      * @param korkeus pelilaudan korkeus ruutuina
      * @param miinoja miinojen määrä
@@ -34,14 +35,14 @@ public class Pelilauta {
         this.ruudukko = new Ruutu[this.korkeus][this.leveys];
         for (int i = 0; i < this.korkeus; i++) {
             for (int j = 0; j < this.leveys; j++) {
-                ruudukko[i][j] = new Ruutu(" ");
+                ruudukko[i][j] = new Ruutu("[ ]");
             }
         }
     }
-    
+
     /**
      * Metodi tulostaa pelilaudan ruudukon
-     * 
+     *
      */
     public void tulostaRuudukko() {
         for (int i = 0; i < korkeus; i++) {
@@ -67,7 +68,7 @@ public class Pelilauta {
     public Ruutu getRuutu(int x, int y) {
         return ruudukko[y][x];
     }
-    
+
     /**
      * Metodi arpoo miinojen paikat ja asettaa ne pelilaudalle
      */
@@ -79,15 +80,14 @@ public class Pelilauta {
                 miinoitettava.setOnkoRuudussaMiina(true);
                 i++;
             }
-            
 
         }
     }
-    
+
     /**
      * Metodi asettaa ruudun avatuksi ja tarkistaa, onko mikä arvo ruudussa on;
      * kuinka monta miinaa ruudun lähellä on.
-     * 
+     *
      * @param x käsiteltävän ruudun x-koordinaatti
      * @param y käsiteltävän ruudun y-koordinaatti
      */
@@ -99,7 +99,7 @@ public class Pelilauta {
             return;
         }
         ruudukko[y][x].setAvattu(true);
-        
+
         if (ruudukko[y][x].onkoRuudussaMiina() == true) {
             this.naytaMiinat();
         }
@@ -114,10 +114,10 @@ public class Pelilauta {
         }
 
     }
-    
+
     /**
      * Metodi asettaa merkin ruutuun, jossa oletetaan olevan miina.
-     * 
+     *
      * @param x käsiteltävän ruudun x-koordinaatti
      * @param y käsiteltävän ruudun y-koordinaatti
      */
@@ -128,13 +128,23 @@ public class Pelilauta {
         ruudukko[y][x].setOnkoLiputettu(true);
         ruudukko[y][x].setArvo("P");
     }
-    
+
+    public void poistaLippu(int x, int y) {
+        if (ruudukko[y][x].onkoLiputettu() == false) {
+            return;
+        }        
+        ruudukko[y][x].setOnkoLiputettu(false);
+        ruudukko[y][x].setArvo("[ ]");
+    }
+
     /**
-     * Metodi laskee ruudun ympärillä olevien miinan sisältävien ruutujen määrän.
-     * 
+     * Metodi laskee ruudun ympärillä olevien miinan sisältävien ruutujen
+     * määrän.
+     *
      * @param x käsiteltävän ruudun x-koordinaatti
      * @param y käsiteltävän ruudun y-koordinaatti
-     * @return käsiteltävän ruudun ympärillä olevien miinan sisältävien ruutujen määrä
+     * @return käsiteltävän ruudun ympärillä olevien miinan sisältävien ruutujen
+     * määrä
      */
     public int getYmparillaOlevienMiinojenMaara(int x, int y) {
         int alkuX = Math.max(0, x - 1);
@@ -155,21 +165,27 @@ public class Pelilauta {
         }
         return laskuri;
     }
-    
+
     /**
      * Metodi merkitsee ruutuun numeron, joka vastaa siihen yhteydessä olevien
      * miinan sisältävien ruutujen määrää.
+     *
      * @param x käsiteltävän ruudun x-koordinaatti
      * @param y käsiteltävän ruudun y-koordinaatti
      */
     public void merkitseNumero(int x, int y) {
-        String numero = "" + this.getYmparillaOlevienMiinojenMaara(x, y);
-        ruudukko[y][x].setArvo(numero);
+        if (this.getYmparillaOlevienMiinojenMaara(x, y) == 0) {
+            ruudukko[y][x].setArvo(" ");
+        } else {
+            String numero = "" + this.getYmparillaOlevienMiinojenMaara(x, y);
+            ruudukko[y][x].setArvo(numero);
+        }
     }
-    
+
     /**
      * Metodi avaa kaikki käsiteltävään ruutuun yhteydessä olevat ruudut, jotka
      * eivät sisällä miinaa.
+     *
      * @param x käsiteltävän ruudun x-koordinaatti
      * @param y käsiteltävän ruudun y-koordinaatti
      */
@@ -197,16 +213,17 @@ public class Pelilauta {
             }
         }
     }
-    
+
     /**
      * Metodi tarkistaa, onko kaikki sellaiset ruudut, joissa ei ole miinaa,
      * avattu
-     * @return true tai false sen mukaan, onko kaikki ruudut avattu vai ei 
+     *
+     * @return true tai false sen mukaan, onko kaikki ruudut avattu vai ei
      */
     public boolean onkoKaikkiAvattu() {
         int kaikkiAvattu = this.korkeus * this.leveys - this.miinoja;
         int laskuri = 0;
-        
+
         for (int i = 0; i < this.korkeus; i++) {
             for (int j = 0; j < this.leveys; j++) {
                 if (ruudukko[i][j].avattu()) {
@@ -216,22 +233,40 @@ public class Pelilauta {
         }
         if (kaikkiAvattu - laskuri == 0) {
             return true;
-        } 
+        }
         return false;
     }
-    
+
     /**
      * Metodi tulostaa ruudukkoon miinan symbolin kaikkiin niihin ruutuihin,
      * joissa on miina
-     * 
+     *
      */
     public void naytaMiinat() {
         for (int i = 0; i < this.korkeus; i++) {
             for (int j = 0; j < leveys; j++) {
                 if (ruudukko[i][j].onkoRuudussaMiina()) {
                     ruudukko[i][j].setArvo("*");
-                } 
+                }
             }
         }
+    }
+    
+    public boolean onkoMiinoitettuRuutuAvattu() {
+        for (int i = 0; i < this.korkeus; i++) {
+            for (int j = 0; j < this.leveys; j++) {
+                if (ruudukko[i][j].onkoRuudussaMiina() && ruudukko[i][j].avattu()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    public boolean loppuukoPeli() {
+        if (onkoMiinoitettuRuutuAvattu() || onkoKaikkiAvattu()) {
+            return true;
+        }
+        return false;
     }
 }

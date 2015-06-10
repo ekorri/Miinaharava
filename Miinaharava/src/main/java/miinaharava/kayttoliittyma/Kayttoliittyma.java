@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package miinaharava.kayttoliittyma;
 
 import java.awt.BorderLayout;
@@ -12,7 +11,6 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
@@ -20,11 +18,11 @@ import miinaharava.logiikka.Pelilauta;
 
 /**
  * Luokka luo Miinaharava-pelin graafisen käyttöliittymän.
- * 
+ *
  * @author ekorri
  */
-public class Kayttoliittyma implements Runnable{
-    
+public class Kayttoliittyma implements Runnable {
+
     private JFrame frame;
     private JButton[][] ruudukko = new JButton[9][9];
     private Pelilauta lauta;
@@ -33,14 +31,14 @@ public class Kayttoliittyma implements Runnable{
     public void run() {
         frame = new JFrame("Miinaharava");
         frame.setPreferredSize(new Dimension(500, 550));
-        
+
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        
+
         luoKomponentit(frame.getContentPane());
-        
+
         this.lauta = new Pelilauta(9, 9, 10);
         this.lauta.asetaMiinat();
-        
+
         frame.pack();
         frame.setVisible(true);
     }
@@ -49,9 +47,9 @@ public class Kayttoliittyma implements Runnable{
         container.add(new JTextArea(), BorderLayout.SOUTH);
         container.add(new JTextArea(), BorderLayout.NORTH);
         container.add(luoRuudukko());
-        
+
     }
-    
+
     private JPanel luoRuudukko() {
         JPanel panel = new JPanel(new GridLayout(9, 9));
         for (int i = 0; i < 9; i++) {
@@ -62,16 +60,19 @@ public class Kayttoliittyma implements Runnable{
         }
         return panel;
     }
-    
+
     public JFrame getFrame() {
         return frame;
     }
-    
+
     public void klikkaaRuutua(int x, int y) {
+        if (lauta.loppuukoPeli()) {
+            return;
+        }
         lauta.avaaRuutu(x, y);
         paivitaNapit();
     }
-    
+
     public void paivitaNapit() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -79,5 +80,17 @@ public class Kayttoliittyma implements Runnable{
             }
         }
     }
-    
+
+    public void klikkaaRuutuaOikealla(int x, int y) {
+        if (lauta.loppuukoPeli()) {
+            return;
+        }
+        if (lauta.getRuutu(x, y).onkoLiputettu()) {
+            lauta.poistaLippu(x, y);
+        } else {
+            lauta.liputaRuutu(x, y);
+        }
+        paivitaNapit();
+    }
+
 }

@@ -143,12 +143,35 @@ public class PelilautaTest {
     }
     
     @Test
+    public void poistaLippuToimiiOikein() {
+        pelilauta.liputaRuutu(5, 4);
+        pelilauta.poistaLippu(5, 4);
+        
+        assertEquals(false, pelilauta.getRuutu(5, 4).onkoLiputettu());
+    }
+    
+    @Test
+    public void poistaLippuToimiiOikein2() {
+        pelilauta.liputaRuutu(7, 6);
+        pelilauta.poistaLippu(7, 6);
+        
+        assertEquals("[ ]", pelilauta.getRuutu(7, 6).getArvo());
+    }
+    
+    @Test
     public void merkitseNumeroToimiiOikein() {
         pelilauta.getRuutu(4, 5).setOnkoRuudussaMiina(true);
         pelilauta.getRuutu(5, 5).setOnkoRuudussaMiina(true);
         pelilauta.merkitseNumero(4, 4);
         
         assertEquals("2", pelilauta.getRuutu(4, 4).getArvo());
+    }
+    
+    @Test
+    public void merkitseNumeroToimiiOikein2() {
+        pelilauta.merkitseNumero(3, 2);
+        
+        assertEquals(" ", pelilauta.getRuutu(3, 2).getArvo());
     }
     
     @Test
