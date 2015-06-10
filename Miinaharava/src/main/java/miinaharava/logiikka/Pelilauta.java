@@ -38,7 +38,11 @@ public class Pelilauta {
             }
         }
     }
-
+    
+    /**
+     * Metodi tulostaa pelilaudan ruudukon
+     * 
+     */
     public void tulostaRuudukko() {
         for (int i = 0; i < korkeus; i++) {
             for (int j = 0; j < leveys; j++) {
@@ -155,8 +159,8 @@ public class Pelilauta {
     /**
      * Metodi merkitsee ruutuun numeron, joka vastaa siihen yhteydessä olevien
      * miinan sisältävien ruutujen määrää.
-     * @param x
-     * @param y 
+     * @param x käsiteltävän ruudun x-koordinaatti
+     * @param y käsiteltävän ruudun y-koordinaatti
      */
     public void merkitseNumero(int x, int y) {
         String numero = "" + this.getYmparillaOlevienMiinojenMaara(x, y);
@@ -166,8 +170,8 @@ public class Pelilauta {
     /**
      * Metodi avaa kaikki käsiteltävään ruutuun yhteydessä olevat ruudut, jotka
      * eivät sisällä miinaa.
-     * @param x
-     * @param y 
+     * @param x käsiteltävän ruudun x-koordinaatti
+     * @param y käsiteltävän ruudun y-koordinaatti
      */
     public void avaaYmparillaOlevat(int x, int y) {
         int alkuX = Math.max(0, x - 1);
@@ -193,7 +197,12 @@ public class Pelilauta {
             }
         }
     }
-
+    
+    /**
+     * Metodi tarkistaa, onko kaikki sellaiset ruudut, joissa ei ole miinaa,
+     * avattu
+     * @return true tai false sen mukaan, onko kaikki ruudut avattu vai ei 
+     */
     public boolean onkoKaikkiAvattu() {
         int kaikkiAvattu = this.korkeus * this.leveys - this.miinoja;
         int laskuri = 0;
@@ -211,6 +220,11 @@ public class Pelilauta {
         return false;
     }
     
+    /**
+     * Metodi tulostaa ruudukkoon miinan symbolin kaikkiin niihin ruutuihin,
+     * joissa on miina
+     * 
+     */
     public void naytaMiinat() {
         for (int i = 0; i < this.korkeus; i++) {
             for (int j = 0; j < leveys; j++) {

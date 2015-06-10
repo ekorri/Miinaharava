@@ -32,7 +32,7 @@ public class Ruutu {
     }
     
     /**
-     * Metodi asettaa ruudun avatuksi
+     * Metodi asettaa ruudun avatuksi tai suljetuksi
      * @param avattu 
      */
     public void setAvattu(boolean avattu) {
@@ -47,7 +47,11 @@ public class Ruutu {
     public boolean onkoRuudussaMiina() {
         return onkoRuudussaMiina;
     }
-
+    
+    /**
+     * Metodi asettaa ruudun tilan sen mukaan, onko ruudussa miina vai ei
+     * @param onkoRuudussaMiina 
+     */
     public void setOnkoRuudussaMiina(boolean onkoRuudussaMiina) {
         this.onkoRuudussaMiina = onkoRuudussaMiina;
     }
