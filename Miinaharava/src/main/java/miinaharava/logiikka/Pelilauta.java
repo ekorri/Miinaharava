@@ -252,6 +252,11 @@ public class Pelilauta {
         }
     }
     
+    /**
+     * Metodi tarkistaa, onko joku miinan sisältävä ruutu avattu.
+     * 
+     * @return true tai false sen mukaan onko miinallinen ruutu avattu vai ei
+     */
     public boolean onkoMiinoitettuRuutuAvattu() {
         for (int i = 0; i < this.korkeus; i++) {
             for (int j = 0; j < this.leveys; j++) {
@@ -263,10 +268,4 @@ public class Pelilauta {
         return false;
     }
     
-    public boolean loppuukoPeli() {
-        if (onkoMiinoitettuRuutuAvattu() || onkoKaikkiAvattu()) {
-            return true;
-        }
-        return false;
-    }
 }

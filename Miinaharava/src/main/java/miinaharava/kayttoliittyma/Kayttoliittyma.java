@@ -6,13 +6,16 @@
 package miinaharava.kayttoliittyma;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import miinaharava.logiikka.Pelilauta;
 
@@ -44,7 +47,9 @@ public class Kayttoliittyma implements Runnable {
     }
 
     private void luoKomponentit(Container container) {
-        container.add(new JTextArea(), BorderLayout.SOUTH);
+        JLabel ala = new JLabel("Testi");      
+        
+        container.add(ala, BorderLayout.SOUTH);
         container.add(new JTextArea(), BorderLayout.NORTH);
         container.add(luoRuudukko());
 
@@ -66,9 +71,6 @@ public class Kayttoliittyma implements Runnable {
     }
 
     public void klikkaaRuutua(int x, int y) {
-        if (lauta.loppuukoPeli()) {
-            return;
-        }
         lauta.avaaRuutu(x, y);
         paivitaNapit();
     }
@@ -77,20 +79,30 @@ public class Kayttoliittyma implements Runnable {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 ruudukko[i][j].setText(lauta.getRuutu(j, i).getArvo());
+//                if (lauta.getRuutu(j, i).getArvo() == "*") {
+//                    ruudukko[i][j].setBackground(Color.red);
+//                }
             }
         }
     }
 
     public void klikkaaRuutuaOikealla(int x, int y) {
-        if (lauta.loppuukoPeli()) {
-            return;
-        }
         if (lauta.getRuutu(x, y).onkoLiputettu()) {
             lauta.poistaLippu(x, y);
         } else {
             lauta.liputaRuutu(x, y);
         }
         paivitaNapit();
+    }
+    
+    public int pelinLoppu() {
+        if (lauta.onkoMiinoitettuRuutuAvattu()) {
+            return 1;
+        }
+        if (lauta.onkoKaikkiAvattu()) {
+            return 2;
+        }
+        return 0;
     }
 
 }

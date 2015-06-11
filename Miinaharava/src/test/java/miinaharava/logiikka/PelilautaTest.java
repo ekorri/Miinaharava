@@ -210,4 +210,28 @@ public class PelilautaTest {
         assertEquals("*", pelilauta.getRuutu(4, 4).getArvo());
     }
     
+    @Test
+    public void onkoMiinoitettuRuutuAvattuToimiiOikein() {
+        pelilauta.getRuutu(6, 3).setOnkoRuudussaMiina(true);
+        pelilauta.getRuutu(6, 3).setAvattu(true);
+        
+        assertEquals(true, pelilauta.onkoMiinoitettuRuutuAvattu());
+    }
+    
+    @Test
+    public void onkoMiinoitettuRuutuAvattuToimiiOikein2() {
+        pelilauta.getRuutu(2, 6).setOnkoRuudussaMiina(true);
+        pelilauta.getRuutu(2, 6).setAvattu(false);
+        
+        assertEquals(false, pelilauta.onkoMiinoitettuRuutuAvattu());
+    }
+    
+    @Test
+    public void onkoMiinoitettuRuutuAvattuToimiiOikein3() {
+        pelilauta.getRuutu(4, 7).setOnkoRuudussaMiina(false);
+        pelilauta.getRuutu(4, 7).setAvattu(true);
+        
+        assertEquals(false, pelilauta.onkoMiinoitettuRuutuAvattu());
+    }
+    
 }

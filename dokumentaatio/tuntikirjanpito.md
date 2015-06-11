@@ -15,3 +15,7 @@ Merkitse aina vähintään päivämäärä, käyttämäsi aika ja ajankäytön k
 31.5. 4 h koodikatselmointi ja oman koodin ihmettelyä
 2.6. 5 h koodin kirjoittamista, graafisen käyttöliittymän ihmettelyä
 3.6. 6 h yritystä opiskella graafisen käyttöliittymän ihmeitä ja vähän lisää koodia
+4.6. 5 h JavaDocin kirjoitusta, sekvenssikaavioiden piirtämistä ja koodin kanssa tuskailua
+5.6. 1,5 h koodin ihmettelyä
+10.6. 5 h koodin kanssa tuskailua (lähinnä tuloksetonta ajatustyötä) ja sekvenssikaavioiden piirtämistä
+11.6. 2,5 h koodin kirjoittamista ja poispyyhkimistä ja tuloksetonta ajatustyötä (en vaan osaa)

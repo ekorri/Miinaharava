@@ -36,9 +36,19 @@ public class Nappi extends JButton implements MouseListener{
     @Override
     public void mousePressed(MouseEvent e) {
     }
+    
+    /**
+     * Metodi tarkistaa, onko peli loppu sekä määrittelee, mitä hiiren klikkauksesta
+     * seuraa.
+     * 
+     * @param e 
+     */
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        if(kayttoliittyma.pelinLoppu() == 1 || kayttoliittyma.pelinLoppu() == 2) {
+                return;
+            }
         if (e.getButton() == 1) {
             kayttoliittyma.klikkaaRuutua(x, y);
         }
