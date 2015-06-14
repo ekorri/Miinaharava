@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package miinaharava.kayttoliittyma;
 
 import java.awt.event.MouseEvent;
@@ -11,17 +10,17 @@ import java.awt.event.MouseListener;
 import javax.swing.JButton;
 
 /**
- * Luokka luo graafisessa käyttöliittymässä luotavan JButtoneista
- * koostuvan ruudukon osat.
- * 
+ * Luokka luo graafisessa käyttöliittymässä luotavan JButtoneista koostuvan
+ * ruudukon osat.
+ *
  * @author ekorri
  */
-public class Nappi extends JButton implements MouseListener{
-    
+public class Nappi extends JButton implements MouseListener {
+
     private int x;
     private int y;
     private Kayttoliittyma kayttoliittyma;
-    
+
     public Nappi(int x, int y, Kayttoliittyma kayttoliittyma) {
         addMouseListener(this);
         this.x = x;
@@ -31,24 +30,26 @@ public class Nappi extends JButton implements MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        if (kayttoliittyma.pelinLoppu() == 1 || kayttoliittyma.pelinLoppu() == 2) {
+            kayttoliittyma.paivitaTekstikenttaAla();
+        }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
     }
-    
-    /**
-     * Metodi tarkistaa, onko peli loppu sekä määrittelee, mitä hiiren klikkauksesta
-     * seuraa.
-     * 
-     * @param e 
-     */
 
+    /**
+     * Metodi tarkistaa, onko peli loppu sekä määrittelee, mitä hiiren
+     * klikkauksesta seuraa.
+     *
+     * @param e
+     */
     @Override
     public void mouseReleased(MouseEvent e) {
-        if(kayttoliittyma.pelinLoppu() == 1 || kayttoliittyma.pelinLoppu() == 2) {
-                return;
-            }
+//        if (kayttoliittyma.pelinLoppu() == 1 || kayttoliittyma.pelinLoppu() == 2) {
+//            return;
+//        }
         if (e.getButton() == 1) {
             kayttoliittyma.klikkaaRuutua(x, y);
         }
@@ -64,5 +65,5 @@ public class Nappi extends JButton implements MouseListener{
     @Override
     public void mouseExited(MouseEvent e) {
     }
-    
+
 }

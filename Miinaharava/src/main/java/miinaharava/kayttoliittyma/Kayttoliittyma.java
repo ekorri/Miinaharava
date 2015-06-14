@@ -15,7 +15,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import miinaharava.logiikka.Pelilauta;
 
@@ -29,6 +28,7 @@ public class Kayttoliittyma implements Runnable {
     private JFrame frame;
     private JButton[][] ruudukko = new JButton[9][9];
     private Pelilauta lauta;
+    private JLabel tekstikenttaAla;
 
     @Override
     public void run() {
@@ -46,10 +46,8 @@ public class Kayttoliittyma implements Runnable {
         frame.setVisible(true);
     }
 
-    private void luoKomponentit(Container container) {
-        JLabel ala = new JLabel("Testi");      
-        
-        container.add(ala, BorderLayout.SOUTH);
+    private void luoKomponentit(Container container) {      
+        container.add(luoTekstikentta(), BorderLayout.SOUTH);
         container.add(new JTextArea(), BorderLayout.NORTH);
         container.add(luoRuudukko());
 
@@ -104,5 +102,18 @@ public class Kayttoliittyma implements Runnable {
         }
         return 0;
     }
-
+    
+    private JLabel luoTekstikentta() {
+        tekstikenttaAla = new JLabel(" ");
+        return tekstikenttaAla;
+    }
+    
+    public void paivitaTekstikenttaAla() {
+        if (pelinLoppu() == 1) {
+            tekstikenttaAla.setText("Boom! Pieleen meni!");
+        }
+        if (pelinLoppu() == 2) {
+            tekstikenttaAla.setText("Jee! Pääsit läpi!");
+        }
+    }
 }
