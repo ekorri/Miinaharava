@@ -128,7 +128,12 @@ public class Pelilauta {
         ruudukko[y][x].setOnkoLiputettu(true);
         ruudukko[y][x].setArvo("P");
     }
-
+    
+    /**
+     * Metodi poistaa merkin ruudusta, jos siinä on sellainen
+     * @param x
+     * @param y 
+     */
     public void poistaLippu(int x, int y) {
         if (ruudukko[y][x].onkoLiputettu() == false) {
             return;

@@ -55,25 +55,47 @@ public class Ruutu {
     public void setOnkoRuudussaMiina(boolean onkoRuudussaMiina) {
         this.onkoRuudussaMiina = onkoRuudussaMiina;
     }
-
+    
+    /**
+     * Metodi tarkistaa onko ruudussa merkki, "lippu"
+     * 
+     * @return 
+     */
     public boolean onkoLiputettu() {
         return onkoLiputettu;
     }
-
+    
+    /**
+     * Metodi asettaa ruudun tilan liputetuksi tai ei-liputetuksi
+     * @param onkoLiputettu 
+     */
     public void setOnkoLiputettu(boolean onkoLiputettu) {
         this.onkoLiputettu = onkoLiputettu;
     }
-
+    
+    /**
+     * Metodi asettaa ruutuun arvon
+     * 
+     * @param arvo merkki, joka ruutuun halutaan asettaa 
+     */
     public void setArvo(String arvo) {
         this.arvo = arvo;
     }
-
+    
+    /**
+     * Metodi palauttaa ruudussa olevan arvon
+     * 
+     * @return ruudun arvo, joka on joko "[ ]", tyhjä, numero 1-8, "P" tai "*"
+     */
     public String getArvo() {
         return arvo;
     }
     
     
-
+    /**
+     * Metodi palauttaa ruudun merkkijonona eli sen arvon
+     * @return ruudussa oleva arvo, ks. yllä
+     */
     @Override
     public String toString() {
         return this.arvo;

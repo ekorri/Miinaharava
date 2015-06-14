@@ -21,7 +21,7 @@ import miinaharava.logiikka.Pelilauta;
 /**
  * Luokka luo Miinaharava-pelin graafisen käyttöliittymän.
  *
- * @author ekorri
+ * @author Eevastiina Korri
  */
 public class Kayttoliittyma implements Runnable {
 
@@ -45,14 +45,24 @@ public class Kayttoliittyma implements Runnable {
         frame.pack();
         frame.setVisible(true);
     }
-
+    
+    /**
+     * Metodi lisää graafisen pelilaudan komponentit laudalle
+     * 
+     * @param container pelilaudan raamit, joiden sisään komponenti sijoitellaan
+     */
     private void luoKomponentit(Container container) {      
         container.add(luoTekstikentta(), BorderLayout.SOUTH);
         container.add(new JTextArea(), BorderLayout.NORTH);
         container.add(luoRuudukko());
 
     }
-
+    
+    /**
+     * Metodi luo napeista koostuvan ruudukon pelilaudalle
+     * 
+     * @return palauttaa kompnentin panel, joka sisältää ruudukon
+     */
     private JPanel luoRuudukko() {
         JPanel panel = new JPanel(new GridLayout(9, 9));
         for (int i = 0; i < 9; i++) {
@@ -67,12 +77,23 @@ public class Kayttoliittyma implements Runnable {
     public JFrame getFrame() {
         return frame;
     }
-
+    
+    /**
+     * Metodi suorittaa toiminnallisuuden, joka seuraa tietyn ruudun
+     * valitsemisesta hiirellä
+     * 
+     * @param x käsiteltävän ruudun x-koordinaatti
+     * @param y käsiteltävän ruudun y-koordinaatti
+     */
     public void klikkaaRuutua(int x, int y) {
         lauta.avaaRuutu(x, y);
         paivitaNapit();
     }
-
+    
+    /**
+     * Metodi päivittää pelilaudan napit sen mukaan, mitä pelilaudalla on
+     * tapahtunut
+     */
     public void paivitaNapit() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -83,7 +104,13 @@ public class Kayttoliittyma implements Runnable {
             }
         }
     }
-
+     /**
+      * Metodi suorittaa toiminnallisuuden, joka seuraa tietyn ruudun
+      * klikkaamisesta hiiren oikealla näppäimellä
+      * 
+      * @param x käsitelvätän ruudun x-koordinaatti
+      * @param y käsiteltävän ruudun y-koordinaatti
+      */
     public void klikkaaRuutuaOikealla(int x, int y) {
         if (lauta.getRuutu(x, y).onkoLiputettu()) {
             lauta.poistaLippu(x, y);
@@ -92,7 +119,11 @@ public class Kayttoliittyma implements Runnable {
         }
         paivitaNapit();
     }
-    
+     /**
+      * Metodi tarkistaa on peli lopussa
+      * 
+      * @return 1, jos pelaaja osui miinaan, 2, jos pelaaja sai pelin läpi
+      */
     public int pelinLoppu() {
         if (lauta.onkoMiinoitettuRuutuAvattu()) {
             return 1;
@@ -103,11 +134,20 @@ public class Kayttoliittyma implements Runnable {
         return 0;
     }
     
+    /**
+     * Metodi luo uuden tekstikentän pelilaudan ruudukon alapuolelle
+     * 
+     * @return palauttaa tekstikentän sisältöineen 
+     */
     private JLabel luoTekstikentta() {
         tekstikenttaAla = new JLabel(" ");
         return tekstikenttaAla;
     }
     
+    /**
+     * Metodi päivittää tekstikentän sisällön pelin lopussa sen mukaan,
+     * miten pelaajan peli sujui
+     */
     public void paivitaTekstikenttaAla() {
         if (pelinLoppu() == 1) {
             tekstikenttaAla.setText("Boom! Pieleen meni!");

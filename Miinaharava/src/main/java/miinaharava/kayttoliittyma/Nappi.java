@@ -20,14 +20,26 @@ public class Nappi extends JButton implements MouseListener {
     private int x;
     private int y;
     private Kayttoliittyma kayttoliittyma;
-
+    
+    /**
+     * Konstruktori
+     * @param x napin x-koordinaatti
+     * @param y napin y-koordinaatti
+     * @param kayttoliittyma graafinen käyttöliittyma, jonka osa napeista
+     * koostuva ruudukko on
+     */
     public Nappi(int x, int y, Kayttoliittyma kayttoliittyma) {
         addMouseListener(this);
         this.x = x;
         this.y = y;
         this.kayttoliittyma = kayttoliittyma;
     }
-
+    
+    /**
+     * Metodi tarkistaa hiiren klikkauksen yhteydessä, onko peli loppu ja päivittää
+     * käyttöliittymän tekstikentän sen mukaan.
+     * @param e 
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
         if (kayttoliittyma.pelinLoppu() == 1 || kayttoliittyma.pelinLoppu() == 2) {
@@ -40,8 +52,7 @@ public class Nappi extends JButton implements MouseListener {
     }
 
     /**
-     * Metodi tarkistaa, onko peli loppu sekä määrittelee, mitä hiiren
-     * klikkauksesta seuraa.
+     * Metodi määrittelee, mitä hiiren klikkauksesta seuraa.
      *
      * @param e
      */
