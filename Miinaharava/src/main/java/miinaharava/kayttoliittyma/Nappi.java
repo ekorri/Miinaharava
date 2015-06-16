@@ -5,7 +5,7 @@
  */
 package miinaharava.kayttoliittyma;
 
-import java.awt.Insets;
+import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -28,6 +28,7 @@ public class Nappi extends JButton implements MouseListener {
     
     private ImageIcon pommi;
     private ImageIcon lippu;
+    private Image avattu;
     
     /**
      * Konstruktori
@@ -99,4 +100,5 @@ public class Nappi extends JButton implements MouseListener {
     public void asetaMiina() {
         setIcon(pommi);
     }
+    
 }

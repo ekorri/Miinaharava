@@ -10,11 +10,9 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 import miinaharava.logiikka.Pelilauta;
 
@@ -40,10 +38,10 @@ public class Kayttoliittyma implements Runnable {
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        luoKomponentit(frame.getContentPane());
-
         this.lauta = new Pelilauta(9, 9, 10);
         this.lauta.asetaMiinat();
+
+        luoKomponentit(frame.getContentPane());
 
         frame.pack();
         frame.setVisible(true);
@@ -56,9 +54,8 @@ public class Kayttoliittyma implements Runnable {
      */
     private void luoKomponentit(Container container) {
         container.add(luoTekstikenttaAla(), BorderLayout.SOUTH);
-        container.add(luoTekstikenttaYla(), BorderLayout.NORTH);
         container.add(luoRuudukko());
-
+        container.add(luoTekstikenttaYla(), BorderLayout.NORTH);
     }
 
     /**
@@ -104,12 +101,15 @@ public class Kayttoliittyma implements Runnable {
     public void paivitaNapit() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-//                if (lauta.getRuutu(j, i).getArvo() == "P") {
-//                  ruudukko[i][j].asetaLippu();  
-//                }
-//                if (lauta.getRuutu(j, i).getArvo() == "*") {
-//                    ruudukko[i][j].asetaMiina();
-//                }
+
+                if (lauta.getRuutu(j, i).getArvo() == "P") {
+                    ruudukko[i][j].asetaLippu();
+                    lauta.getRuutu(j, i).setArvo(" ");
+                }
+                if (lauta.getRuutu(j, i).getArvo() == "*") {
+                    ruudukko[i][j].asetaMiina();
+                    lauta.getRuutu(j, i).setArvo(" ");
+                }
                 ruudukko[i][j].setText(lauta.getRuutu(j, i).getArvo());
 
                 if (this.pelinLoppu() == 1 && lauta.getRuutu(j, i).onkoRuudussaMiina() == false && lauta.getRuutu(j, i).onkoLiputettu()) {
@@ -123,7 +123,7 @@ public class Kayttoliittyma implements Runnable {
      * Metodi suorittaa toiminnallisuuden, joka seuraa tietyn ruudun
      * klikkaamisesta hiiren oikealla näppäimellä
      *
-     * @param x käsitelvätän ruudun x-koordinaatti
+     * @param x käsiteltävän ruudun x-koordinaatti
      * @param y käsiteltävän ruudun y-koordinaatti
      */
     public void klikkaaRuutuaOikealla(int x, int y) {
@@ -177,15 +177,29 @@ public class Kayttoliittyma implements Runnable {
         }
     }
 
+    /**
+     * Metodi luo tekstikentän pelilaudan ruudukon yläpuolelle. Tekstikentässä
+     * näkyy kuinka paljon pelaajalla on vielä lippuja käytettävissään.
+     *
+     * @return tekstikenttä
+     */
     public JLabel luoTekstikenttaYla() {
-        tekstikenttaYla = new JLabel("Lippuja jäljellä: ");
+        tekstikenttaYla = new JLabel("Lippuja jäljellä: " + lauta.getLippuja());
         return tekstikenttaYla;
     }
 
+    /**
+     * Metodi päivittää pelilaudan ruudukon yläpuolella olevan tekstikentän
+     * vastaamaan pelin tilannetta.
+     */
     public void paivitaTekstikenttaYla() {
-        tekstikenttaYla.setText("Lippuja jäljella: " + lauta.getLippuja());
+        tekstikenttaYla.setText("Lippuja jäljellä: " + lauta.getLippuja());
     }
 
+    /**
+     * Metodi pysäyttää pelikellon.
+     *
+     */
     public void pysaytaKello() {
         kello.stop();
     }
