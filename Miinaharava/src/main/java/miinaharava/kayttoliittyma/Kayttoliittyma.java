@@ -26,9 +26,12 @@ import miinaharava.logiikka.Pelilauta;
 public class Kayttoliittyma implements Runnable {
 
     private JFrame frame;
-    private JButton[][] ruudukko = new JButton[9][9];
+    private Nappi[][] ruudukko = new Nappi[9][9];
     private Pelilauta lauta;
-    private JLabel tekstikenttaAla;
+    private JLabel tekstikenttaAlaVasen;
+    private JLabel tekstikenttaYla;
+    private Kello kello;
+    private boolean peliAlkanut = false;
 
     @Override
     public void run() {
@@ -45,22 +48,22 @@ public class Kayttoliittyma implements Runnable {
         frame.pack();
         frame.setVisible(true);
     }
-    
+
     /**
      * Metodi lisää graafisen pelilaudan komponentit laudalle
-     * 
+     *
      * @param container pelilaudan raamit, joiden sisään komponenti sijoitellaan
      */
-    private void luoKomponentit(Container container) {      
-        container.add(luoTekstikentta(), BorderLayout.SOUTH);
-        container.add(new JTextArea(), BorderLayout.NORTH);
+    private void luoKomponentit(Container container) {
+        container.add(luoTekstikenttaAla(), BorderLayout.SOUTH);
+        container.add(luoTekstikenttaYla(), BorderLayout.NORTH);
         container.add(luoRuudukko());
 
     }
-    
+
     /**
      * Metodi luo napeista koostuvan ruudukon pelilaudalle
-     * 
+     *
      * @return palauttaa kompnentin panel, joka sisältää ruudukon
      */
     private JPanel luoRuudukko() {
@@ -77,19 +80,23 @@ public class Kayttoliittyma implements Runnable {
     public JFrame getFrame() {
         return frame;
     }
-    
+
     /**
      * Metodi suorittaa toiminnallisuuden, joka seuraa tietyn ruudun
      * valitsemisesta hiirellä
-     * 
+     *
      * @param x käsiteltävän ruudun x-koordinaatti
      * @param y käsiteltävän ruudun y-koordinaatti
      */
     public void klikkaaRuutua(int x, int y) {
+        if (!peliAlkanut) {
+            kello.start();
+            peliAlkanut = true;
+        }
         lauta.avaaRuutu(x, y);
         paivitaNapit();
     }
-    
+
     /**
      * Metodi päivittää pelilaudan napit sen mukaan, mitä pelilaudalla on
      * tapahtunut
@@ -97,20 +104,28 @@ public class Kayttoliittyma implements Runnable {
     public void paivitaNapit() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                ruudukko[i][j].setText(lauta.getRuutu(j, i).getArvo());
-//                if (lauta.getRuutu(j, i).getArvo() == "*") {
-//                    ruudukko[i][j].setBackground(Color.red);
+//                if (lauta.getRuutu(j, i).getArvo() == "P") {
+//                  ruudukko[i][j].asetaLippu();  
 //                }
+//                if (lauta.getRuutu(j, i).getArvo() == "*") {
+//                    ruudukko[i][j].asetaMiina();
+//                }
+                ruudukko[i][j].setText(lauta.getRuutu(j, i).getArvo());
+
+                if (this.pelinLoppu() == 1 && lauta.getRuutu(j, i).onkoRuudussaMiina() == false && lauta.getRuutu(j, i).onkoLiputettu()) {
+                    ruudukko[i][j].setForeground(Color.red);
+                }
             }
         }
     }
-     /**
-      * Metodi suorittaa toiminnallisuuden, joka seuraa tietyn ruudun
-      * klikkaamisesta hiiren oikealla näppäimellä
-      * 
-      * @param x käsitelvätän ruudun x-koordinaatti
-      * @param y käsiteltävän ruudun y-koordinaatti
-      */
+
+    /**
+     * Metodi suorittaa toiminnallisuuden, joka seuraa tietyn ruudun
+     * klikkaamisesta hiiren oikealla näppäimellä
+     *
+     * @param x käsitelvätän ruudun x-koordinaatti
+     * @param y käsiteltävän ruudun y-koordinaatti
+     */
     public void klikkaaRuutuaOikealla(int x, int y) {
         if (lauta.getRuutu(x, y).onkoLiputettu()) {
             lauta.poistaLippu(x, y);
@@ -119,11 +134,12 @@ public class Kayttoliittyma implements Runnable {
         }
         paivitaNapit();
     }
-     /**
-      * Metodi tarkistaa on peli lopussa
-      * 
-      * @return 1, jos pelaaja osui miinaan, 2, jos pelaaja sai pelin läpi
-      */
+
+    /**
+     * Metodi tarkistaa on peli lopussa
+     *
+     * @return 1, jos pelaaja osui miinaan, 2, jos pelaaja sai pelin läpi
+     */
     public int pelinLoppu() {
         if (lauta.onkoMiinoitettuRuutuAvattu()) {
             return 1;
@@ -133,27 +149,44 @@ public class Kayttoliittyma implements Runnable {
         }
         return 0;
     }
-    
+
     /**
      * Metodi luo uuden tekstikentän pelilaudan ruudukon alapuolelle
-     * 
-     * @return palauttaa tekstikentän sisältöineen 
+     *
+     * @return palauttaa tekstikentän sisältöineen
      */
-    private JLabel luoTekstikentta() {
-        tekstikenttaAla = new JLabel(" ");
-        return tekstikenttaAla;
+    private JPanel luoTekstikenttaAla() {
+        JPanel panel = new JPanel(new GridLayout(1, 2));
+        tekstikenttaAlaVasen = new JLabel(" ");
+        kello = new Kello();
+        panel.add(tekstikenttaAlaVasen);
+        panel.add(kello);
+        return panel;
     }
-    
+
     /**
-     * Metodi päivittää tekstikentän sisällön pelin lopussa sen mukaan,
-     * miten pelaajan peli sujui
+     * Metodi päivittää tekstikentän sisällön pelin lopussa sen mukaan, miten
+     * pelaajan peli sujui
      */
     public void paivitaTekstikenttaAla() {
         if (pelinLoppu() == 1) {
-            tekstikenttaAla.setText("Boom! Pieleen meni!");
+            tekstikenttaAlaVasen.setText("Boom! Pieleen meni!");
         }
         if (pelinLoppu() == 2) {
-            tekstikenttaAla.setText("Jee! Pääsit läpi!");
+            tekstikenttaAlaVasen.setText("Jee! Pääsit läpi!");
         }
+    }
+
+    public JLabel luoTekstikenttaYla() {
+        tekstikenttaYla = new JLabel("Lippuja jäljellä: ");
+        return tekstikenttaYla;
+    }
+
+    public void paivitaTekstikenttaYla() {
+        tekstikenttaYla.setText("Lippuja jäljella: " + lauta.getLippuja());
+    }
+
+    public void pysaytaKello() {
+        kello.stop();
     }
 }

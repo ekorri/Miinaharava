@@ -15,6 +15,7 @@ public class Pelilauta {
     private int leveys;
     private int korkeus;
     private int miinoja;
+    private int lippuja;
     private Random random;
     private Ruutu[][] ruudukko;
 
@@ -31,6 +32,7 @@ public class Pelilauta {
         this.leveys = leveys;
         this.korkeus = korkeus;
         this.miinoja = miinoja;
+        this.lippuja = miinoja;
         this.random = new Random();
         this.ruudukko = new Ruutu[this.korkeus][this.leveys];
         for (int i = 0; i < this.korkeus; i++) {
@@ -63,6 +65,10 @@ public class Pelilauta {
 
     public int getMiinoja() {
         return miinoja;
+    }
+
+    public int getLippuja() {
+        return lippuja;
     }
 
     public Ruutu getRuutu(int x, int y) {
@@ -116,28 +122,40 @@ public class Pelilauta {
     }
 
     /**
-     * Metodi asettaa merkin ruutuun, jossa oletetaan olevan miina.
+     * Metodi asettaa merkin ruutuun, jossa oletetaan olevan miina. Merkkejä
+     * on käytettävissä sama määrä kuin laudalla on miinoja. Merkkien määrä
+     * vähenee aina yhdellä kun sellainen asetetaan ruutuun.
      *
      * @param x käsiteltävän ruudun x-koordinaatti
      * @param y käsiteltävän ruudun y-koordinaatti
      */
     public void liputaRuutu(int x, int y) {
-        if (ruudukko[y][x].onkoLiputettu()) {
+        if (ruudukko[y][x].onkoLiputettu() || ruudukko[y][x].avattu()) {
             return;
         }
-        ruudukko[y][x].setOnkoLiputettu(true);
-        ruudukko[y][x].setArvo("P");
+        if (this.lippuja > 0) {
+            this.lippuja--;
+            ruudukko[y][x].setOnkoLiputettu(true);
+            ruudukko[y][x].setArvo("P");
+        }
+
     }
-    
+
     /**
-     * Metodi poistaa merkin ruudusta, jos siinä on sellainen
+     * Metodi poistaa merkin ruudusta, jos siinä on sellainen. Samalla käytettävissä
+     * olevien merkkien määrä kasvaa yhdellä. Ei kuitenkaan koskaan suuremmaksi
+     * kuin miinojen määrä.
+     *
      * @param x
-     * @param y 
+     * @param y
      */
     public void poistaLippu(int x, int y) {
         if (ruudukko[y][x].onkoLiputettu() == false) {
             return;
-        }        
+        }
+        if (this.lippuja < this.miinoja) {
+            this.lippuja++;
+        }
         ruudukko[y][x].setOnkoLiputettu(false);
         ruudukko[y][x].setArvo("[ ]");
     }
@@ -256,10 +274,10 @@ public class Pelilauta {
             }
         }
     }
-    
+
     /**
      * Metodi tarkistaa, onko joku miinan sisältävä ruutu avattu.
-     * 
+     *
      * @return true tai false sen mukaan onko miinallinen ruutu avattu vai ei
      */
     public boolean onkoMiinoitettuRuutuAvattu() {
@@ -272,5 +290,5 @@ public class Pelilauta {
         }
         return false;
     }
-    
+
 }

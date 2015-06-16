@@ -5,9 +5,14 @@
  */
 package miinaharava.kayttoliittyma;
 
+import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.SwingConstants;
 
 /**
  * Luokka luo graafisessa käyttöliittymässä luotavan JButtoneista koostuvan
@@ -21,6 +26,9 @@ public class Nappi extends JButton implements MouseListener {
     private int y;
     private Kayttoliittyma kayttoliittyma;
     
+    private ImageIcon pommi;
+    private ImageIcon lippu;
+    
     /**
      * Konstruktori
      * @param x napin x-koordinaatti
@@ -33,6 +41,14 @@ public class Nappi extends JButton implements MouseListener {
         this.x = x;
         this.y = y;
         this.kayttoliittyma = kayttoliittyma;
+        
+        try {
+            pommi = new ImageIcon(ImageIO.read( ClassLoader.getSystemResource( "bomb.png" ) ));
+            lippu = new ImageIcon(ImageIO.read( ClassLoader.getSystemResource( "flag.png" ) ));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        setHorizontalTextPosition(SwingConstants.CENTER);
     }
     
     /**
@@ -44,6 +60,7 @@ public class Nappi extends JButton implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         if (kayttoliittyma.pelinLoppu() == 1 || kayttoliittyma.pelinLoppu() == 2) {
             kayttoliittyma.paivitaTekstikenttaAla();
+            kayttoliittyma.pysaytaKello();
         }
     }
 
@@ -58,14 +75,12 @@ public class Nappi extends JButton implements MouseListener {
      */
     @Override
     public void mouseReleased(MouseEvent e) {
-//        if (kayttoliittyma.pelinLoppu() == 1 || kayttoliittyma.pelinLoppu() == 2) {
-//            return;
-//        }
         if (e.getButton() == 1) {
             kayttoliittyma.klikkaaRuutua(x, y);
         }
         if (e.getButton() == 3) {
             kayttoliittyma.klikkaaRuutuaOikealla(x, y);
+            kayttoliittyma.paivitaTekstikenttaYla();
         }
     }
 
@@ -77,4 +92,11 @@ public class Nappi extends JButton implements MouseListener {
     public void mouseExited(MouseEvent e) {
     }
 
+    public void asetaLippu() {
+        setIcon(lippu);
+    }
+    
+    public void asetaMiina() {
+        setIcon(pommi);
+    }
 }
