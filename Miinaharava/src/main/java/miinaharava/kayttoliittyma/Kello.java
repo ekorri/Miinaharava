@@ -13,7 +13,7 @@ import javax.swing.JLabel;
  * Tämä luokka luo kellon, joka mittaa pelaajan peliin käyttämää aikaa. Kello
  * käynnistyy ensimmäisestä klikkauksesta ja pysähtyy pelin loppuessa.
  * 
- * @author
+ * @author Eevastiina Korri
  */
 public class Kello extends JLabel{
     private final static long STEPS = 1000; 
@@ -25,7 +25,10 @@ public class Kello extends JLabel{
         setHorizontalAlignment(JLabel.CENTER);
         setText("" + 0);
     }
-
+    
+    /**
+     * Metodi panee kellon päälle.
+     */
     public void start() {
         timer = new Timer();
             TimerTask task = new TimerTask() {
@@ -50,18 +53,21 @@ public class Kello extends JLabel{
             };
         timer.scheduleAtFixedRate(task, 0, STEPS);
     }
-  
+    
+    /**
+     * Metodi pysäyttää kellon.
+     */
     public void stop() {
         timer.cancel();
     }
   
-    public void reset() {
-        timer.cancel();
-        seconds = -1;
-        setText("" + 0);    
-    }
-  
-    public int getSeconds() {
-        return seconds;
-    }
+//    public void reset() {
+//        timer.cancel();
+//        seconds = -1;
+//        setText("" + 0);    
+//    }
+//  
+//    public int getSeconds() {
+//        return seconds;
+//    }
 }

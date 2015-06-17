@@ -48,9 +48,9 @@ public class Kayttoliittyma implements Runnable {
     }
 
     /**
-     * Metodi lisää graafisen pelilaudan komponentit laudalle
+     * Metodi lisää graafisen pelilaudan komponentit laudalle.
      *
-     * @param container pelilaudan raamit, joiden sisään komponenti sijoitellaan
+     * @param container pelilaudan raamit, joiden sisään komponentit sijoitellaan
      */
     private void luoKomponentit(Container container) {
         container.add(luoTekstikenttaAla(), BorderLayout.SOUTH);
@@ -59,9 +59,9 @@ public class Kayttoliittyma implements Runnable {
     }
 
     /**
-     * Metodi luo napeista koostuvan ruudukon pelilaudalle
+     * Metodi luo napeista koostuvan ruudukon pelilaudalle.
      *
-     * @return palauttaa kompnentin panel, joka sisältää ruudukon
+     * @return palauttaa komponentin panel, joka sisältää ruudukon
      */
     private JPanel luoRuudukko() {
         JPanel panel = new JPanel(new GridLayout(9, 9));
@@ -80,7 +80,7 @@ public class Kayttoliittyma implements Runnable {
 
     /**
      * Metodi suorittaa toiminnallisuuden, joka seuraa tietyn ruudun
-     * valitsemisesta hiirellä
+     * klikkaamisesta hiiren vasemmalla nappulalla.
      *
      * @param x käsiteltävän ruudun x-koordinaatti
      * @param y käsiteltävän ruudun y-koordinaatti
@@ -96,7 +96,7 @@ public class Kayttoliittyma implements Runnable {
 
     /**
      * Metodi päivittää pelilaudan napit sen mukaan, mitä pelilaudalla on
-     * tapahtunut
+     * tapahtunut.
      */
     public void paivitaNapit() {
         for (int i = 0; i < 9; i++) {
@@ -113,7 +113,7 @@ public class Kayttoliittyma implements Runnable {
                 ruudukko[i][j].setText(lauta.getRuutu(j, i).getArvo());
 
                 if (this.pelinLoppu() == 1 && lauta.getRuutu(j, i).onkoRuudussaMiina() == false && lauta.getRuutu(j, i).onkoLiputettu()) {
-                    ruudukko[i][j].setForeground(Color.red);
+                    ruudukko[i][j].setBackground(Color.red);
                 }
             }
         }
@@ -121,7 +121,7 @@ public class Kayttoliittyma implements Runnable {
 
     /**
      * Metodi suorittaa toiminnallisuuden, joka seuraa tietyn ruudun
-     * klikkaamisesta hiiren oikealla näppäimellä
+     * klikkaamisesta hiiren oikealla nappulalla.
      *
      * @param x käsiteltävän ruudun x-koordinaatti
      * @param y käsiteltävän ruudun y-koordinaatti
@@ -129,6 +129,7 @@ public class Kayttoliittyma implements Runnable {
     public void klikkaaRuutuaOikealla(int x, int y) {
         if (lauta.getRuutu(x, y).onkoLiputettu()) {
             lauta.poistaLippu(x, y);
+            ruudukko[y][x].poistaLipunKuva();
         } else {
             lauta.liputaRuutu(x, y);
         }
@@ -136,7 +137,7 @@ public class Kayttoliittyma implements Runnable {
     }
 
     /**
-     * Metodi tarkistaa on peli lopussa
+     * Metodi tarkistaa on peli lopussa.
      *
      * @return 1, jos pelaaja osui miinaan, 2, jos pelaaja sai pelin läpi
      */
@@ -151,7 +152,7 @@ public class Kayttoliittyma implements Runnable {
     }
 
     /**
-     * Metodi luo uuden tekstikentän pelilaudan ruudukon alapuolelle
+     * Metodi luo uuden tekstikentän pelilaudan ruudukon alapuolelle.
      *
      * @return palauttaa tekstikentän sisältöineen
      */
@@ -166,7 +167,7 @@ public class Kayttoliittyma implements Runnable {
 
     /**
      * Metodi päivittää tekstikentän sisällön pelin lopussa sen mukaan, miten
-     * pelaajan peli sujui
+     * pelaajan peli sujui.
      */
     public void paivitaTekstikenttaAla() {
         if (pelinLoppu() == 1) {

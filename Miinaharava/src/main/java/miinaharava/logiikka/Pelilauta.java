@@ -91,8 +91,9 @@ public class Pelilauta {
     }
 
     /**
-     * Metodi asettaa ruudun avatuksi ja tarkistaa, onko mikä arvo ruudussa on;
-     * kuinka monta miinaa ruudun lähellä on.
+     * Metodi asettaa ruudun avatuksi ja tarkistaa, onko mikä arvo ruudussa on eli
+     * kuinka monta miinaa ruutuun välittömässä yhteydessä olevissa ruuduissa on, 
+     * tai onko ruudussa miina.
      *
      * @param x käsiteltävän ruudun x-koordinaatti
      * @param y käsiteltävän ruudun y-koordinaatti
@@ -108,6 +109,10 @@ public class Pelilauta {
 
         if (ruudukko[y][x].onkoRuudussaMiina() == true) {
             this.naytaMiinat();
+        }
+        
+        if (ruudukko[y][x].onkoLiputettu()) {
+            this.poistaLippu(x, y);
         }
 
         if (ruudukko[y][x].onkoRuudussaMiina() == false) {
@@ -156,17 +161,23 @@ public class Pelilauta {
         if (this.lippuja < this.miinoja) {
             this.lippuja++;
         }
+        if (ruudukko[y][x].avattu() == true) {
+            ruudukko[y][x].setArvo(" ");
+        }
+        if (ruudukko[y][x].avattu() == false) {
+            ruudukko[y][x].setArvo("[ ]");
+        }
         ruudukko[y][x].setOnkoLiputettu(false);
-        ruudukko[y][x].setArvo("[ ]");
+        
     }
 
     /**
-     * Metodi laskee ruudun ympärillä olevien miinan sisältävien ruutujen
+     * Metodi laskee ruutuun välittömässä yhteydessä olevien miinan sisältävien ruutujen
      * määrän.
      *
      * @param x käsiteltävän ruudun x-koordinaatti
      * @param y käsiteltävän ruudun y-koordinaatti
-     * @return käsiteltävän ruudun ympärillä olevien miinan sisältävien ruutujen
+     * @return käsiteltävän ruutuun välittömässä yhteydessä olevien miinan sisältävien ruutujen
      * määrä
      */
     public int getYmparillaOlevienMiinojenMaara(int x, int y) {
@@ -190,7 +201,7 @@ public class Pelilauta {
     }
 
     /**
-     * Metodi merkitsee ruutuun numeron, joka vastaa siihen yhteydessä olevien
+     * Metodi merkitsee ruutuun numeron, joka vastaa siihen välittömässä yhteydessä olevien
      * miinan sisältävien ruutujen määrää.
      *
      * @param x käsiteltävän ruudun x-koordinaatti
@@ -206,7 +217,7 @@ public class Pelilauta {
     }
 
     /**
-     * Metodi avaa kaikki käsiteltävään ruutuun yhteydessä olevat ruudut, jotka
+     * Metodi avaa kaikki käsiteltävään ruutuun välittömässä yhteydessä olevat ruudut, jotka
      * eivät sisällä miinaa.
      *
      * @param x käsiteltävän ruudun x-koordinaatti
@@ -238,10 +249,10 @@ public class Pelilauta {
     }
 
     /**
-     * Metodi tarkistaa, onko kaikki sellaiset ruudut, joissa ei ole miinaa,
-     * avattu
+     * Metodi tarkistaa, onvatko kaikki sellaiset ruudut, joissa ei ole miinaa,
+     * avattuja
      *
-     * @return true tai false sen mukaan, onko kaikki ruudut avattu vai ei
+     * @return true tai false sen mukaan, ovatko kaikki ruudut avattuja vai ei
      */
     public boolean onkoKaikkiAvattu() {
         int kaikkiAvattu = this.korkeus * this.leveys - this.miinoja;
@@ -278,7 +289,7 @@ public class Pelilauta {
     /**
      * Metodi tarkistaa, onko joku miinan sisältävä ruutu avattu.
      *
-     * @return true tai false sen mukaan onko miinallinen ruutu avattu vai ei
+     * @return true tai false sen mukaan onko miinan sisältävä ruutu avattu vai ei
      */
     public boolean onkoMiinoitettuRuutuAvattu() {
         for (int i = 0; i < this.korkeus; i++) {

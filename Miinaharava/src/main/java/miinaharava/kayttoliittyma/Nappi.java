@@ -15,10 +15,10 @@ import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
 /**
- * Luokka luo graafisessa käyttöliittymässä luotavan JButtoneista koostuvan
- * ruudukon osat.
+ * Luokka luo graafisessa käyttöliittymässä luotavan koostuvan
+ * ruudukon osat. Perii luokan JButton ja toteuttaa rajapinnan MouseListener.
  *
- * @author ekorri
+ * @author Eevastiina Korri
  */
 public class Nappi extends JButton implements MouseListener {
 
@@ -28,10 +28,9 @@ public class Nappi extends JButton implements MouseListener {
     
     private ImageIcon pommi;
     private ImageIcon lippu;
-    private Image avattu;
     
     /**
-     * Konstruktori
+     * Konstruktori.
      * @param x napin x-koordinaatti
      * @param y napin y-koordinaatti
      * @param kayttoliittyma graafinen käyttöliittyma, jonka osa napeista
@@ -53,7 +52,7 @@ public class Nappi extends JButton implements MouseListener {
     }
     
     /**
-     * Metodi tarkistaa hiiren klikkauksen yhteydessä, onko peli loppu ja päivittää
+     * Metodi tarkistaa hiiren vasemman nappulan klikkauksen yhteydessä, onko peli loppu ja päivittää
      * käyttöliittymän tekstikentän sen mukaan.
      * @param e 
      */
@@ -70,7 +69,8 @@ public class Nappi extends JButton implements MouseListener {
     }
 
     /**
-     * Metodi määrittelee, mitä hiiren klikkauksesta seuraa.
+     * Metodi määrittelee tapahtumat, jotka seuraavat hiiren vasemman ja oikean
+     * nappulan klikkauksesta.
      *
      * @param e
      */
@@ -92,11 +92,24 @@ public class Nappi extends JButton implements MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
     }
-
+    
+    /**
+     * Metodi asettaa lipun kuvan haluttuun kohteeseen.
+     */
     public void asetaLippu() {
         setIcon(lippu);
     }
     
+    /**
+     * Metodi poistaa lipun kuvan kohteesta.
+     */
+    public void poistaLipunKuva() {
+        setIcon(null);
+    }
+    
+    /**
+     * Metodi asettaa miinan kuvan haluttun kohteeseen.
+     */
     public void asetaMiina() {
         setIcon(pommi);
     }

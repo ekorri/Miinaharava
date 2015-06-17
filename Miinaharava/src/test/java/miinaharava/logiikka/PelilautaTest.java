@@ -54,6 +54,11 @@ public class PelilautaTest {
     }
     
     @Test
+    public void konstruktoriAsettaaLippujenMaaranOikein() {
+        assertEquals(10, pelilauta.getLippuja());
+    }
+    
+    @Test
     public void avaaRuutuJossaEiMiinaaToimiiOikein() {
         pelilauta.getRuutu(5, 5).setOnkoRuudussaMiina(false);
         pelilauta.getRuutu(5, 4).setOnkoRuudussaMiina(true);
@@ -62,6 +67,16 @@ public class PelilautaTest {
         
         
         assertEquals(2, pelilauta.getYmparillaOlevienMiinojenMaara(5, 5));
+    }
+    
+    @Test
+    public void avaaRuutuJossaEiMiinaaToimiiOikein2() {
+        pelilauta.getRuutu(5, 5).setOnkoRuudussaMiina(false);
+        pelilauta.getRuutu(5, 4).setOnkoRuudussaMiina(true);
+        pelilauta.getRuutu(5, 6).setOnkoRuudussaMiina(true);
+        pelilauta.avaaRuutu(5, 5);
+        
+        assertEquals("2", pelilauta.getRuutu(5, 5).getArvo());
     }
     
     @Test
@@ -81,6 +96,22 @@ public class PelilautaTest {
         pelilauta.avaaRuutu(5, 6);
         
         assertEquals("*", pelilauta.getRuutu(5, 6).getArvo());
+    }
+    
+    @Test
+    public void avaaRuutuJossaLippuToimiiOikein() {
+        pelilauta.getRuutu(3, 5).setOnkoLiputettu(true);
+        pelilauta.avaaRuutu(3, 5);
+        
+        assertEquals(false, pelilauta.getRuutu(3, 5).onkoLiputettu());
+    }
+    
+    @Test
+    public void avaaRuutuJossaLippuToimiiOikein2() {
+        pelilauta.getRuutu(1, 7).setOnkoLiputettu(true);
+        pelilauta.avaaRuutu(1, 7);
+        
+        assertEquals(" ", pelilauta.getRuutu(1, 7).getArvo());
     }
     
     @Test
@@ -136,10 +167,38 @@ public class PelilautaTest {
     }
     
     @Test
-    public void liputaRuutuToimiiOikein3() {      
+    public void liputaRuutuToimiiOikein3() {
+        pelilauta.getRuutu(3, 5).setAvattu(true);
+        pelilauta.liputaRuutu(3, 5);
+        
+        assertEquals(false, pelilauta.getRuutu(3, 5).onkoLiputettu());
+    }
+    
+    @Test
+    public void liputaRuutuArvoToimiiOikein() {      
         pelilauta.liputaRuutu(4, 4);
         
         assertEquals("P", pelilauta.getRuutu(4, 4).getArvo());
+    }
+    
+    @Test
+    public void liputaRuutuLippujenLkmToimiiOikein() {
+        pelilauta.liputaRuutu(5, 1);
+        pelilauta.liputaRuutu(2, 2);
+        
+        assertEquals(8, pelilauta.getLippuja());
+    }
+    
+    @Test
+    public void liputaRuutuLippujenLkmToimiiOikein2() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                pelilauta.liputaRuutu(i, j);
+            }
+        }
+        pelilauta.liputaRuutu(8, 8);
+        pelilauta.liputaRuutu(7, 7);
+        assertEquals(0, pelilauta.getLippuja());
     }
     
     @Test
@@ -156,6 +215,34 @@ public class PelilautaTest {
         pelilauta.poistaLippu(7, 6);
         
         assertEquals("[ ]", pelilauta.getRuutu(7, 6).getArvo());
+    }
+    
+    @Test
+    public void poistaLippuToimiiOikein3() {
+        pelilauta.getRuutu(2, 8).setOnkoLiputettu(true);
+        pelilauta.getRuutu(2, 8).setAvattu(true);        
+        pelilauta.poistaLippu(2, 8);
+        
+        assertEquals(" ", pelilauta.getRuutu(2, 8).getArvo());
+    }
+    
+    @Test
+    public void poistaLippuLippujenLkmToimiiOikein() {
+        pelilauta.liputaRuutu(5, 5);
+        pelilauta.liputaRuutu(5, 6);
+        pelilauta.liputaRuutu(0, 2);
+        pelilauta.poistaLippu(5, 5);
+        
+        assertEquals(8, pelilauta.getLippuja());
+    }
+    
+    @Test
+    public void poistaLippuLippujenLkmToimiiOikein2() {
+        pelilauta.liputaRuutu(2, 2);
+        pelilauta.poistaLippu(2, 2);
+        pelilauta.poistaLippu(2, 3);
+        
+        assertEquals(10, pelilauta.getLippuja());
     }
     
     @Test

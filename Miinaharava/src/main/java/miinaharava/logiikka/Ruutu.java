@@ -33,7 +33,8 @@ public class Ruutu {
     
     /**
      * Metodi asettaa ruudun avatuksi tai suljetuksi
-     * @param avattu 
+     * 
+     * @param avattu true tai false
      */
     public void setAvattu(boolean avattu) {
         this.avattu = avattu;
@@ -50,7 +51,8 @@ public class Ruutu {
     
     /**
      * Metodi asettaa ruudun tilan sen mukaan, onko ruudussa miina vai ei
-     * @param onkoRuudussaMiina 
+     * 
+     * @param onkoRuudussaMiina true tai false
      */
     public void setOnkoRuudussaMiina(boolean onkoRuudussaMiina) {
         this.onkoRuudussaMiina = onkoRuudussaMiina;
@@ -59,7 +61,7 @@ public class Ruutu {
     /**
      * Metodi tarkistaa onko ruudussa merkki, "lippu"
      * 
-     * @return 
+     * @return true tai false sen mukaan onko ruudussa merkki vai ei
      */
     public boolean onkoLiputettu() {
         return onkoLiputettu;
@@ -67,7 +69,8 @@ public class Ruutu {
     
     /**
      * Metodi asettaa ruudun tilan liputetuksi tai ei-liputetuksi
-     * @param onkoLiputettu 
+     * 
+     * @param onkoLiputettu true tai false
      */
     public void setOnkoLiputettu(boolean onkoLiputettu) {
         this.onkoLiputettu = onkoLiputettu;
@@ -85,7 +88,7 @@ public class Ruutu {
     /**
      * Metodi palauttaa ruudussa olevan arvon
      * 
-     * @return ruudun arvo, joka on joko "[ ]", tyhjä, numero 1-8, "P" tai "*"
+     * @return ruudun arvo, joka on joko tyhjä, [ ], numero 1-8, P tai *
      */
     public String getArvo() {
         return arvo;
@@ -94,7 +97,7 @@ public class Ruutu {
     
     /**
      * Metodi palauttaa ruudun merkkijonona eli sen arvon
-     * @return ruudussa oleva arvo, ks. yllä
+     * @return ruudussa oleva arvo
      */
     @Override
     public String toString() {
