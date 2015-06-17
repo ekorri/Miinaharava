@@ -2,7 +2,7 @@
 
 package miinaharava.kayttoliittyma;
 import javax.swing.SwingUtilities;
-import miinaharava.kayttoliittyma.Peli;
+import miinaharava.kayttoliittyma.Tekstikayttoliittyma;
 
 
 

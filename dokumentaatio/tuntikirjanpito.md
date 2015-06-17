@@ -19,3 +19,7 @@ Merkitse aina vähintään päivämäärä, käyttämäsi aika ja ajankäytön k
 5.6. 1,5 h koodin ihmettelyä
 10.6. 5 h koodin kanssa tuskailua (lähinnä tuloksetonta ajatustyötä) ja sekvenssikaavioiden piirtämistä
 11.6. 2,5 h koodin kirjoittamista ja poispyyhkimistä ja tuloksetonta ajatustyötä (en vaan osaa)
+13.6. 1 h koodin refaktorointia ja uusien toiminnallisuuksien suunnittelua
+14.6. 3 h koodikatselmointi ja omaan projektiin lisää toiminnallisuutta
+16.6. 4 h demo ja oman koodin parantelua
+17.6. 5 h pahimpien bugien korjaus dokumentaation täydennys ja yleinen loppusilaus

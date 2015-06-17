@@ -9,12 +9,12 @@ import miinaharava.logiikka.Ruutu;
  * 
  * @author Eevastiina Korri
  */
-public class Peli {
+public class Tekstikayttoliittyma {
 
     private Pelilauta lauta;
     private Scanner lukija;
 
-    public Peli() {
+    public Tekstikayttoliittyma() {
         this.lauta = new Pelilauta(9, 9, 10);
         this.lukija = new Scanner(System.in);
     }

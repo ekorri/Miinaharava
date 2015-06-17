@@ -61,13 +61,4 @@ public class Kello extends JLabel{
         timer.cancel();
     }
   
-//    public void reset() {
-//        timer.cancel();
-//        seconds = -1;
-//        setText("" + 0);    
-//    }
-//  
-//    public int getSeconds() {
-//        return seconds;
-//    }
 }

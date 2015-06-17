@@ -151,8 +151,8 @@ public class Pelilauta {
      * olevien merkkien määrä kasvaa yhdellä. Ei kuitenkaan koskaan suuremmaksi
      * kuin miinojen määrä.
      *
-     * @param x
-     * @param y
+     * @param x käsiteltävän ruudun x-koordinaatti
+     * @param y käsiteltävän ruudun y-koordinaatti
      */
     public void poistaLippu(int x, int y) {
         if (ruudukko[y][x].onkoLiputettu() == false) {
@@ -162,7 +162,7 @@ public class Pelilauta {
             this.lippuja++;
         }
         if (ruudukko[y][x].avattu() == true) {
-            ruudukko[y][x].setArvo(" ");
+            this.merkitseNumero(x, y);
         }
         if (ruudukko[y][x].avattu() == false) {
             ruudukko[y][x].setArvo("[ ]");

@@ -50,7 +50,8 @@ public class Kayttoliittyma implements Runnable {
     /**
      * Metodi lisää graafisen pelilaudan komponentit laudalle.
      *
-     * @param container pelilaudan raamit, joiden sisään komponentit sijoitellaan
+     * @param container pelilaudan raamit, joiden sisään komponentit
+     * sijoitellaan
      */
     private void luoKomponentit(Container container) {
         container.add(luoTekstikenttaAla(), BorderLayout.SOUTH);
@@ -80,7 +81,7 @@ public class Kayttoliittyma implements Runnable {
 
     /**
      * Metodi suorittaa toiminnallisuuden, joka seuraa tietyn ruudun
-     * klikkaamisesta hiiren vasemmalla nappulalla.
+     * klikkaamisesta hiiren vasemmalla näppäimellä.
      *
      * @param x käsiteltävän ruudun x-koordinaatti
      * @param y käsiteltävän ruudun y-koordinaatti
@@ -121,7 +122,7 @@ public class Kayttoliittyma implements Runnable {
 
     /**
      * Metodi suorittaa toiminnallisuuden, joka seuraa tietyn ruudun
-     * klikkaamisesta hiiren oikealla nappulalla.
+     * klikkaamisesta hiiren oikealla näppäimellä.
      *
      * @param x käsiteltävän ruudun x-koordinaatti
      * @param y käsiteltävän ruudun y-koordinaatti

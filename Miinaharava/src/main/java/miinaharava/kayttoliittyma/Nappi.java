@@ -5,10 +5,8 @@
  */
 package miinaharava.kayttoliittyma;
 
-import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -52,7 +50,7 @@ public class Nappi extends JButton implements MouseListener {
     }
     
     /**
-     * Metodi tarkistaa hiiren vasemman nappulan klikkauksen yhteydessä, onko peli loppu ja päivittää
+     * Metodi tarkistaa hiiren vasemman näppäimen klikkauksen yhteydessä, onko peli loppu ja päivittää
      * käyttöliittymän tekstikentän sen mukaan.
      * @param e 
      */
@@ -70,7 +68,7 @@ public class Nappi extends JButton implements MouseListener {
 
     /**
      * Metodi määrittelee tapahtumat, jotka seuraavat hiiren vasemman ja oikean
-     * nappulan klikkauksesta.
+     * näppäimen klikkauksesta.
      *
      * @param e
      */
