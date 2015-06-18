@@ -1,0 +1,5 @@
+Testausdokumentaatio
+ 
+Ohjelman logiikka on lähes täysin kattavasti testattu JUnit-testeillä. Kaikkeen, kuten pelilaudan tulostamiseen en testejä pystynyt kirjoittamaan. Kaikkia mutaatioita en myöskään saa tapettua, johtuen metodien rakenteesta eli en pysty kirjoittamaan testiin sellaista tilannetta, jota metodi ei itse blokkaisi pois. Yksi tällainen on lipunpoiston vaikutuksessa käytettävissä olevien lippujen lukumäärään.
+ 
+Käyttöliittymä ja siihen liittyvät luokat on sen sijaan testattu käsin, ajamalla ohjelmaa useita kertoja. Välillä olen käyttänyt apuna ylimääräistä koodiriviä, joka on näyttänyt miinat pelilaudalla heti pelin alussa. Olen eri testikerroilla esimerkiksi asetellut lippuja minne sattuu tai klikkaillut miinoja tai pelannut pelin läpi, nähdäkseni, että tekstikentät toimivat oikein, kello aloittaa ja lopettaa oikeaan aikaan, miinojen näyttö lopussa toimii ja lippujen asettaminen ja poisto toimivat. Ruutu, jossa on lippu ei myöskään avaudu ennen kuin lippu on ruudusta poistettu.

@@ -52,7 +52,8 @@ public class Nappi extends JButton implements MouseListener {
     /**
      * Metodi tarkistaa hiiren vasemman näppäimen klikkauksen yhteydessä, onko peli loppu ja päivittää
      * käyttöliittymän tekstikentän sen mukaan.
-     * @param e 
+     * 
+     * @param e tapahtuma, jonka tyypin metodi määrittelee
      */
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -68,12 +69,15 @@ public class Nappi extends JButton implements MouseListener {
 
     /**
      * Metodi määrittelee tapahtumat, jotka seuraavat hiiren vasemman ja oikean
-     * näppäimen klikkauksesta.
+     * näppäimen klikkauksesta.Mikäli peli on loppu, metodi ei tee mitään.
      *
-     * @param e
+     * @param e tapahtuma, jonka tyypin metodi määrittelee
      */
     @Override
     public void mouseReleased(MouseEvent e) {
+        if (kayttoliittyma.pelinLoppu() == 1 || kayttoliittyma.pelinLoppu() == 2) {
+            return;
+        }
         if (e.getButton() == 1) {
             kayttoliittyma.klikkaaRuutua(x, y);
         }

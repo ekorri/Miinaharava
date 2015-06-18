@@ -104,15 +104,14 @@ public class Pelilauta {
         }
         if (ruudukko[y][x].avattu() == true) {
             return;
+        }        
+        if (ruudukko[y][x].onkoLiputettu()) {
+            return;
         }
         ruudukko[y][x].setAvattu(true);
 
         if (ruudukko[y][x].onkoRuudussaMiina() == true) {
             this.naytaMiinat();
-        }
-        
-        if (ruudukko[y][x].onkoLiputettu()) {
-            this.poistaLippu(x, y);
         }
 
         if (ruudukko[y][x].onkoRuudussaMiina() == false) {
@@ -232,6 +231,9 @@ public class Pelilauta {
         for (int yi = alkuY; yi <= loppuY; yi++) {
             for (int xi = alkuX; xi <= loppuX; xi++) {
                 if (ruudukko[yi][xi].avattu()) {
+                    continue;
+                }
+                if (ruudukko[yi][xi].onkoLiputettu()) {
                     continue;
                 }
                 if (yi == y && xi == x) {

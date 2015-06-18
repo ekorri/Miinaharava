@@ -23,3 +23,4 @@ Merkitse aina vähintään päivämäärä, käyttämäsi aika ja ajankäytön k
 14.6. 3 h koodikatselmointi ja omaan projektiin lisää toiminnallisuutta
 16.6. 4 h demo ja oman koodin parantelua
 17.6. 5 h pahimpien bugien korjaus dokumentaation täydennys ja yleinen loppusilaus
+18.6. 1 h viimeiset korjaukset ja dokumenttien päivitys

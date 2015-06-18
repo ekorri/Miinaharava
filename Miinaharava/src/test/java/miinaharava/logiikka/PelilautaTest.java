@@ -60,6 +60,14 @@ public class PelilautaTest {
     
     @Test
     public void avaaRuutuJossaEiMiinaaToimiiOikein() {
+        pelilauta.getRuutu(4, 3).setOnkoRuudussaMiina(false);
+        pelilauta.avaaRuutu(4, 3);
+        
+        assertEquals(true, pelilauta.getRuutu(4, 3).avattu());
+    }
+    
+    @Test
+    public void avaaRuutuJossaEiMiinaaToimiiOikein2() {
         pelilauta.getRuutu(5, 5).setOnkoRuudussaMiina(false);
         pelilauta.getRuutu(5, 4).setOnkoRuudussaMiina(true);
         pelilauta.getRuutu(5, 6).setOnkoRuudussaMiina(true);
@@ -70,7 +78,7 @@ public class PelilautaTest {
     }
     
     @Test
-    public void avaaRuutuJossaEiMiinaaToimiiOikein2() {
+    public void avaaRuutuJossaEiMiinaaToimiiOikein3() {
         pelilauta.getRuutu(5, 5).setOnkoRuudussaMiina(false);
         pelilauta.getRuutu(5, 4).setOnkoRuudussaMiina(true);
         pelilauta.getRuutu(5, 6).setOnkoRuudussaMiina(true);
@@ -103,15 +111,7 @@ public class PelilautaTest {
         pelilauta.getRuutu(3, 5).setOnkoLiputettu(true);
         pelilauta.avaaRuutu(3, 5);
         
-        assertEquals(false, pelilauta.getRuutu(3, 5).onkoLiputettu());
-    }
-    
-    @Test
-    public void avaaRuutuJossaLippuToimiiOikein2() {
-        pelilauta.getRuutu(1, 7).setOnkoLiputettu(true);
-        pelilauta.avaaRuutu(1, 7);
-        
-        assertEquals(" ", pelilauta.getRuutu(1, 7).getArvo());
+        assertEquals(false, pelilauta.getRuutu(3, 5).avattu());
     }
     
     @Test
@@ -150,6 +150,17 @@ public class PelilautaTest {
         pelilauta.avaaYmparillaOlevat(5, 6);
         
         assertEquals(true, pelilauta.getRuutu(5, 3).avattu());
+    }
+    
+    @Test
+    public void avaaYmparillaOlevatToimiiOikein4() {
+        pelilauta.getRuutu(5, 6).setAvattu(true);
+        pelilauta.getRuutu(5, 6).setOnkoRuudussaMiina(false);
+        pelilauta.getRuutu(5, 4).setOnkoRuudussaMiina(false);
+        pelilauta.getRuutu(5, 3).setOnkoLiputettu(true);
+        pelilauta.avaaYmparillaOlevat(5, 6);
+        
+        assertEquals(false, pelilauta.getRuutu(5, 3).avattu());
     }
     
     @Test
